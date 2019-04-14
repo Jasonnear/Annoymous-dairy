@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8" />
+        <title>Simple example - Editor.md examples</title>
+        <link rel="stylesheet" href="/dairy/editor/examples/css/style.css" />
+        <link rel="stylesheet" href="/dairy/editor/css/editormd.css" />
+        <link rel="stylesheet" href="/dairy/editor/css/bootstrap.min.css"/>
+        <script src="/dairy/editor/examples/js/jquery.min.js"></script>
+        <script src="/dairy/editor/editormd.min.js"></script>
+        
+        <!-- header -->
+        <link rel="stylesheet" href="/dairy/css/bootstrap.min.css">
+    	<link rel="stylesheet" href="/dairy/css/templatemo-style.css">
+        <!-- layui -->
+	    <link rel="stylesheet" href="/dairy/layui/css/layui.css"> 
+	    <script src="/dairy/layui/layui.js"></script>
+	    <script>
+		layui.use(['layer', 'form'], function(){
+		  var layer = layui.layer
+		  ,form = layui.form;	  
+		});
+		</script>
+    </head>
+    <body>
+    	<!-- 轮播 -->
+        <div class="tm-header">
+            <div class="container-fluid">
+                <div class="tm-header-inner">
+                    <a href="#" class="navbar-brand tm-site-name">Dairy</a>
+                    
+                    <!-- navbar -->
+                    <nav class="navbar tm-main-nav">
+
+                        <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar">
+                            &#9776;
+                        </button>
+                        <!-- 按钮 -->
+                        <div class="collapse navbar-toggleable-sm" id="tmNavbar">
+                            <ul class="nav navbar-nav">
+                                <li class="nav-item active">
+                                    <a href="/dairy/dairy_home" class="nav-link">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/dairy/dairy_myself" class="nav-link">Myself</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="blog.html" class="nav-link">Set</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="contact.html" class="nav-link">Contact</a>
+                                </li>
+                            </ul>                        
+                        </div>                      
+                    </nav>  
+                </div>                                  
+            </div>            
+        </div>
+		<!-- 最上面的图片 -->
+		<div class="layui-carousel" id="test1">
+		  <div carousel-item>
+		    <div class="tm-home-img-container">
+            	<img alt="Image" class="hidden-lg-up img-fluid">
+        	</div>
+		    <div class="tm-home-img-container1">
+            	<img alt="Image" class="hidden-lg-up img-fluid">
+        	</div>
+		    <div class="tm-home-img-container2">
+            	<img alt="Image" class="hidden-lg-up img-fluid">
+        	</div>
+		    <div class="tm-home-img-container3">
+            	<img alt="Image" class="hidden-lg-up img-fluid">
+        	</div>
+		  </div>
+		</div>
+		
+		<!--选择器-->
+		<div class="layui-layout layui-layout-admin">
+		  <div class="layui-header">
+		    <div class="layui-logo" style="left: 650px;">Choose</div>
+		    <!-- 头部区域（可配合layui已有的水平导航） -->
+		    <ul class="layui-nav layui-layout-left" style="left: 820px;">
+		      <li class="layui-nav-item"><a href="">All</a></li>
+		      <li class="layui-nav-item">
+		        <a href="javascript:;">writer</a>
+		        <dl class="layui-nav-child">
+		        <span th:each="dairyType:${session.dairyType_list}">
+		        	<dd><a class="rel" th:text="${dairyType.dairy_type}" th:value="${dairyType.id}"></a></dd>
+		        </span>
+		        <!-- 
+		          <dd><a href="/dairy/daily_index">daily</a></dd>
+		          <dd><a href="/dairy/voice_index">voice</a></dd>
+		           -->
+		        </dl>
+		      </li>
+		    </ul>
+		  </div>
+		</div>
+		<div id="wrapper">
+	      <h1 style="margin-top:42px;margin-bottom:50px;font-size:80px">Daily Dairy</h1>
+	    </div>
+		<!-- editor编辑 -->
+        <div id="layout">
+            <section class="tm-section" style="padding-bottom: 0px;">
+	            <div class="container-fluid" style="max-width: 700px;">
+	              	<input type="text" id="article" name="article" class="form-control" placeholder="Article"/>	              	
+	              	<button class="layui-btn  layui-btn-lg" onclick="save()" id="editor_save" style="position: absolute;margin-left: 700px;margin-top: -47px;">提交</button>	                              
+	            </div>
+	            <!-- 公开按钮 -->
+				<form class="layui-form" style="margin-left: 585px;">
+				  <div class="layui-form-item">
+				    <label class="layui-form-label" style="font-size: larger;">公开</label>
+				    <div class="layui-input-block">
+				      <input type="checkbox" name="permission" lay-skin="switch" lay-text="ON|OFF">
+				    </div>
+				  </div>
+				</form>
+				
+				<!-- 专题按钮 -->
+				<form class="layui-form" style="margin-left: 585px;">
+				  <div class="layui-form-item">
+				    <label class="layui-form-label" style="font-size: larger;">专题</label>
+				    <div class="layui-input-block" style="width:50%">
+				      <select name="topic" id="topic" >
+         				<span th:each="topic:${session.topic_list}">
+         					<option th:value="${topic.id}" th:text="${topic.topic_type}"></option>
+         				</span>
+					</select>
+				    </div>
+				  </div>
+				</form>
+					           
+        	</section> 
+            <div id="test-editormd">
+            	<textarea style="display:none;" id="test-editormd-markdown-doc" class="editormd-markdown-textarea" name="test-editormd-markdown-doc"></textarea>
+        		<!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
+        		<textarea id="test-editormd-html-doc" class="editormd-html-textarea" name="test-editormd-html-doc"></textarea>
+    		</div>
+        </div>
+		<!-- js -->
+        <script type="text/javascript">
+			var testEditor;
+            $(function() {
+                testEditor = editormd("test-editormd", {
+                    width   : "90%",
+                    height  : 640,
+                    syncScrolling : "single",
+                    path    : "/dairy/editor/lib/",
+                    imageUpload : true,
+                    imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                    imageUploadURL : "/dairy/daily_uploadfile",
+                    saveHTMLToTextarea : true,
+                    emoji: true,
+                    onload : function() {
+                    	$(".editormd-preview-container").css("font-size","20px");
+                    	
+                    }
+                      
+                });            	                
+            });           
+            <!--点击DairyType跳转路径-->
+            $(".rel").on('click',function(){
+        		var value = $(this).attr("value");
+        		if(value == 0){
+        			window.location.href="/dairy/daily_index";
+        		}else if(value == 1){
+        			window.location.href="/dairy/voice_index";
+        		}else if(value == 2){
+        			window.location.href="/dairy/future_daily_index";
+        		}else{
+        			window.location.href="/dairy/future_voice_index";
+        		}
+        	})
+            
+            <!--保存-->
+            function save() {
+                console.log($("#test-editormd-markdown-doc").text());
+                console.log($("#test-editormd-html-doc").text());
+                var permission;
+                //ON:公开
+                if($(".layui-input-block").find('em').html() == 'ON'){
+                	permission = true;
+                }else{
+                	permission = false;
+                }
+                
+                $.ajax({
+                    url: "/dairy/daily_save",
+                    type: "post",
+                    async: true,
+                    data: {
+                        "md": $("#test-editormd-markdown-doc").text(),
+                        "html": $("#test-editormd-html-doc").text(),
+                        "article":$("#article").val(),
+                        "permission":permission,
+                        "topic_id": $("#topic").val(),
+                        "dairytype_id":0
+                    },
+                    dataType: "json",
+                    success:function(data) {
+                    	if(data.code == 1){
+                    		if(permission){
+                    			window.location.href="/dairy/dairy_home";
+                    		}else{
+                    			window.location.href="/dairy/dairy_myself";
+                    		}                   			
+                    	}
+                    }           
+                });
+                
+            }                   
+        </script>
+      
+        <script>
+		//公开开关
+		layui.use('form', function(){
+		  var form = layui.form;
+		});
+		</script>
+		
+        <script>
+		//choose 引入的代码
+		layui.use('element', function(){
+		  var element = layui.element;
+		  
+		});
+		</script>
+		
+        <script>
+        //轮播图引入的代码
+		layui.use('carousel', function(){
+		  var carousel = layui.carousel;
+		  //建造实例
+		  carousel.render({
+		    elem: '#test1'
+		    ,width: '100%' //设置容器宽度
+		    ,arrow: 'always' //始终显示箭头
+		    ,height: '470px'
+		    //,anim: 'updown' //切换动画方式
+		  });
+		});
+		</script>
+    </body>
+</html>

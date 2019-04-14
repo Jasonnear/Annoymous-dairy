@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+
+<link href="/dairy/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/dairy/css/font-awesome.css" rel="stylesheet"> 
+<link rel="stylesheet" href="/dairy/css/style.css" type="text/css" media="all" />
+<link rel="stylesheet" href="/dairy/css/ken-burns.css">
+
+<!-- gallery -->
+<link type="text/css" rel="stylesheet" href="/dairy/css/cm-overlay.css" />
+<script src="/dairy/js/jquery-1.11.1.min.js"></script>
+<script src="/dairy/js/bootstrap.js"></script>
+<script src="/dairy/js/sendRequest.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script> 
+
+<!-- layui -->
+<link rel="stylesheet" href="/dairy/layui/css/layui.css">
+<script src="/dairy/layui/layui.js"></script>
+<script>
+//一般直接写在一个js文件中
+layui.use(['layer', 'form'], function(){
+  var layer = layui.layer
+  ,form = layui.form;
+});
+</script>
+
+<!-- 图标 -->
+<link href="/dairy/css/font-awesome.min.css" rel="stylesheet">
+<link href="/dairy/css/style_tubiao.css" rel="stylesheet">
+<script src="/dairy/js/show_hidden_tubiao.js"></script>
+</head>
+<body>
+	<!-- banner -->
+	<div class="banner">
+		<div class="top-banner">
+			<div class="container">
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+		<div class="header">
+			<div class="container">
+				<div class="top-nav">
+					<div class="navbar-top">
+							<!-- Brand and toggle get grouped for better mobile display -->
+							<div class="navbar-header">
+							  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							  </button>
+							  <!--
+								 <div class="navbar-brand logo ">
+									<h1><a href="index.html">Garden</a></h1>
+								</div>
+								-->
+							</div>
+
+							<!-- 列表-->
+							<!--                                                  
+							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+								<ul class="nav navbar-nav">
+									<li><a class="active" href="index.html">Home</a></li>
+									<li><a href="#about" class="scroll">About</a></li>
+									<li><a href="#services" class="scroll">Services</a></li>
+									<li><a href="#gallery" class="scroll">Gallery</a></li>
+									<li><a href="#team" class="scroll">Team</a></li>
+									<li><a href="#news" class="scroll">News</a></li>
+									<li><a href="#contact" class="scroll">Contact</a></li>
+								</ul>	
+								<div class="clearfix"> </div>
+							</div>
+							--><!-- /.navbar-collapse -->
+						</div>
+				</div>	
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!-- //banner -->
+	<div id="kb" class="carousel kb_elastic animate_text kb_wrapper" data-ride="carousel" data-interval="6000" data-pause="hover">
+            <!-- Wrapper for Slides -->
+            <div class="carousel-inner" role="listbox">
+                <!-- 图片展示1 -->
+                <div class="item active" id="item_active">
+					<div class="slider">
+						<div class="carousel-caption kb_caption slider-grid">
+							<h3>Dairy</h3>
+							<p>Record your life,mood,troubles,personal goals,and share with others.</p>
+						</div>
+					</div>
+                </div>
+
+                <!-- 图片展示2 -->
+                <div class="item" id="item">
+					<div class="slider slider1">
+						<div class="carousel-caption kb_caption kb_caption_right slider-grid">
+							<h3>Music</h3>
+							<p>Listen to music and relax, face a better future.</p>
+						</div>
+					</div>
+                </div>
+
+                <!-- 图片展示3 -->
+                <!--
+                <div class="item">
+					<div class="slider slider2">
+						<div class="carousel-caption kb_caption kb_caption_center slider-grid">
+						   <h3>Curabitur</h3>
+							<p>Nunc turpis purus, vestibulum at quam ac, feugiat dignissim nunc</p>
+						</div>
+					</div>
+                </div>
+                -->
+
+            </div>
+            <!-- Navigation Buttons -->
+            <!-- Left Button -->
+            <a class="left carousel-control kb_control_left" href="#kb" role="button" data-slide="prev" id="jason_control_left">
+                <span class="fa fa-angle-left kb_icons" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <!-- Right Button -->
+            <a class="right carousel-control kb_control_right" href="#kb" role="button" data-slide="next" id="jason_control_right">
+                <span class="fa fa-angle-right kb_icons" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+   </div> 
+   
+   <!-- dairy图标  -->
+	<section class="features" id="features_dairy">
+    <div class="container">
+      <h2 class="text-center">Features</h2>
+      
+      <div class="row">      	      		
+        <div class="feature-col col-lg-4 col-xs-12">
+          <div class="card card-block text-center">
+            <div>
+              <div class="feature-icon">
+                <span class="layui-icon layui-icon-home" style="font-size: 30px"></span>
+              </div>
+            </div>
+            <div>
+              <h3>Home</h3>
+              <p>Show the diary information of yourself.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-col col-lg-4 col-xs-12">
+          <div class="card card-block text-center">
+            <div>
+              <div class="feature-icon">
+                <span class="layui-icon layui-icon-notice" style="font-size: 30px"></span>
+              </div>
+            </div>
+            <div>
+              <h3>Remind</h3>
+              <p>Remind you of any tasks or goals that have not been completed.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-col col-lg-4 col-xs-12">
+          <div class="card card-block text-center">
+            <div>
+              <div class="feature-icon">
+                <span class="layui-icon layui-icon-read" style="font-size: 30px"></span>
+              </div>
+            </div>
+            <div>
+              <h3>Read</h3>
+              <p>Look at its diary to help it solve the same troubles.</p>
+            </div>
+          </div>
+        </div>                    
+      </div>
+
+      <div class="row">
+        <div class="feature-col col-lg-4 col-xs-12">
+          <div class="card card-block text-center">
+            <div>
+              <div class="feature-icon">
+                <span class="layui-icon layui-icon-edit" style="font-size: 30px"></span>
+              </div>
+            </div>
+            <div>
+              <h3>Writer</h3>
+              <p>Record your life,mood,troubles,personal goals,and share with others.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-col col-lg-4 col-xs-12">
+          <div class="card card-block text-center">
+            <div>
+              <div class="feature-icon">
+                <span class="layui-icon layui-icon-play" style="font-size: 30px"></span>
+              </div>
+            </div>
+            <div>
+              <h3>Play</h3>
+              <p>Play your own recordings and relive your life.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-col col-lg-4 col-xs-12">
+          <div class="card card-block text-center">
+            <div>
+              <div class="feature-icon">
+                <span class="layui-icon layui-icon-friends" style="font-size: 30px"></span>
+              </div>
+            </div>
+            <div>
+              <h3>Chat</h3>
+              <p>Chat with other people to share their troubles.</p>
+            </div>
+          </div>
+        </div>      
+      </div>    
+    </div>
+  </section>
+  
+  <!-- music图标  -->
+  <section class="features" id="features_music">
+    <div class="container">
+      <h2 class="text-center">Features</h2>
+      
+      <div class="row">      	      		
+        <div class="feature-col col-lg-4 col-xs-12">
+          <div class="card card-block text-center">
+            <div>
+              <div class="feature-icon">
+                <span class="layui-icon layui-icon-home" style="font-size: 30px"></span>
+              </div>
+            </div>
+            <div>
+              <h3>Home</h3>
+              <p>Show the diary information of yourself.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-col col-lg-4 col-xs-12">
+          <div class="card card-block text-center">
+            <div>
+              <div class="feature-icon">
+                <span class="layui-icon layui-icon-play" style="font-size: 30px"></span>
+              </div>
+            </div>
+            <div>
+              <h3>Play</h3>
+              <p>play music and feel the music of fascination.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-col col-lg-4 col-xs-12">
+          <div class="card card-block text-center">
+            <div>
+              <div class="feature-icon">
+                <span class="layui-icon layui-icon-headset" style="font-size: 30px"></span>
+              </div>
+            </div>
+            <div>
+              <h3>Listen</h3>
+              <p>Listen to music and relax.</p>
+            </div>
+          </div>
+        </div>                    
+      </div>    
+    </div>
+  </section>
+	<!-- //footer -->
+	<script type="text/javascript" src="/dairy/js/move-top.js"></script>
+</body>	
+</html>

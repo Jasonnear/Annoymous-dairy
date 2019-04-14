@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Log in|Anonymous diary</title>
+    <link rel="stylesheet" href="/dairy/css/easyui.css"></link>
+    <link rel="stylesheet" href="/dairy/css/icon.css"></link>
+    <link rel="stylesheet" href="/dairy/css/login-register.css"></link>
+    <script type="text/javascript" src="/dairy/js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="/dairy/js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/dairy/js/login.js"></script>
+    <script type="text/javascript" src="/dairy/js/easyui-lang-zh_CN.js"></script>
+
+</head>
+<body>
+    <div id="login_bg" class ="login_bg" style="background-image:url(/dairy/img/login1.jpg);"></div>
+    <div class="login_header">
+    	<span></span>
+    </div>
+    
+    <div class="container">
+    	<div class="form_header">
+        	<h1 id="logo">Anonymous diary</h1>
+			<h2 id="subheading">To explore and discover</h2>
+        </div>
+        <div class="signup_forms" class="signup_forms">
+            	<div id="signup_forms_container" class="signup_forms_container">
+                    	<form class="signup_form_form" id="sign_form" method="post" action="checklogin.jsp">
+                        	<div class="signup_account" id="signup_account">
+                            	<div class="form_user">	
+        							<input type="text" name="email" placeholder="Email or Username" id="signin_email">
+        							<span id="email_notice1" style="position: absolute; margin-left: 280px;margin-top: -37px;font-size: larger;color: white; width:80%"></span>
+                                </div>
+                                <div class="form_password">
+           							<input type="password" name="code" placeholder="Code or Password" id="signin_code">
+        						</div>
+                            </div>
+                            </div>
+                            	 <button type="button" id="signup_forms_submit_code"><span><strong>Get Code</strong></span></button>
+               					 <button type="button" id="signup_forms_submit"><span><strong>Log in</strong></span></button>
+            				</div>
+                        </form> 
+                  		   
+    			</div>
+    	</div>
+    <div class="footer">
+    	<div class="footer_signup_link">
+        	<a class="signup_link" href="/dairy/register">Sign up</a>
+        </div>
+    </div>
+</body>
+</html>

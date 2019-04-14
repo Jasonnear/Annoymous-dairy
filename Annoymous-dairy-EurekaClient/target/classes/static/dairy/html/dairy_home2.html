@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Classic - Responsive Bootstrap 4.0 Template</title>
+	<!-- jquery -->
+	<script src="/dairy/js/jquery-1.8.0.min.js"></script>
+    <!-- load stylesheets -->
+    <link rel="stylesheet" href="/dairy/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/dairy/css/templatemo-style.css">             
+
+    <!--layui-->
+    <link rel="stylesheet" href="/dairy/layui/css/layui.css">
+    <script src="/dairy/layui/layui.js"></script>
+    <script>
+	layui.use(['layer', 'form'], function(){
+	  var layer = layui.layer
+	  ,form = layui.form;	  
+	});
+	</script>
+	<!-- editor -->
+    <link rel="stylesheet" href="/dairy/editor/css/editormd.preview.min.css" />
+    <link rel="stylesheet" href="/dairy/editor/css/editormd.css"/>
+    <script src="/dairy/editor/examples/js/jquery.min.js"></script>
+	<script src="/dairy/editor/lib/marked.min.js"></script>
+	<script src="/dairy/editor/lib/prettify.min.js"></script>
+	<script src="/dairy/editor/editormd.min.js"></script>
+	
+	<script src="/dairy/editor/lib/raphael.min.js"></script>
+	<script src="/dairy/editor/lib/underscore.min.js"></script>
+	<script src="/dairy/editor/lib/sequence-diagram.min.js"></script>
+	<script src="/dairy/editor/lib/flowchart.min.js"></script>
+	<script src="/dairy/editor/lib/jquery.flowchart.min.js"></script>
+	
+	<!-- subscribe -->
+	<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    
+    <!-- chat -->
+    <link rel="stylesheet" href="/dairy/css/chat_reset.min.css">
+    <link rel="stylesheet" href="/dairy/css/chat_style.css">
+	
+    <!-- dairy_home -->
+    <script src="/dairy/js/dairy_home.js"></script>
+    <link rel="stylesheet" href="/dairy/daily_home_context/css/style.css">
+    <link rel="stylesheet" href="/dairy/daily_home_context/css/responsive.css">
+    <link rel="stylesheet" href="/dairy/daily_home_context/css/color.css">
+    
+    <!-- comment -->
+    <link rel="stylesheet" href="/dairy/comment/css/style.css">
+    <link rel="stylesheet" href="/dairy/comment/css/comment.css">
+</head>
+    <body>
+    	<div style="display:none" th:text="${session.user.id}" id="id"></div>
+    	<div style="display:none" th:text="${session.send}" id="send"></div>
+       <!-- 轮播 -->
+        <div class="tm-header">
+            <div class="container-fluid">
+                <div class="tm-header-inner">
+                    <a href="#" class="navbar-brand tm-site-name" style="font-size:30px">Dairy</a>
+                    
+                    <!-- navbar -->
+                    <nav class="navbar tm-main-nav">
+
+                        <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar">
+                            &#9776;
+                        </button>
+                        <!-- 按钮 -->
+                        <div class="collapse navbar-toggleable-sm" id="tmNavbar">
+                            <ul class="nav navbar-nav">
+                                <li class="nav-item active">
+                                    <a href="/dairy/dairy_home" class="nav-link" style="font-size:20px">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/dairy/dairy_myself" class="nav-link" style="font-size:20px">Myself</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="blog.html" class="nav-link" style="font-size:20px">Set</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="contact.html" class="nav-link" style="font-size:20px">Contact</a>
+                                </li>
+                            </ul>                        
+                        </div>
+                        
+                    </nav>  
+
+                </div>                                  
+            </div>            
+        </div>
+		<!-- 最上面的图片 -->
+		<div class="layui-carousel" id="test1">
+		  <div carousel-item>
+		    <div class="tm-home-img-container">
+            	<img alt="Image" class="hidden-lg-up img-fluid">
+        	</div>
+		    <div class="tm-home-img-container1">
+            	<img alt="Image" class="hidden-lg-up img-fluid">
+        	</div>
+		    <div class="tm-home-img-container2">
+            	<img alt="Image" class="hidden-lg-up img-fluid">
+        	</div>
+		    <div class="tm-home-img-container3">
+            	<img alt="Image" class="hidden-lg-up img-fluid">
+        	</div>
+		  </div>
+		</div>
+		<!--start music -->
+		<audio  src="/dairy/top_music/topic music.mp3" autoplay="autoplay" style="display: none;"></audio>
+		
+		<!--选择器-->
+		<div class="layui-layout layui-layout-admin">
+		  <div class="layui-header">
+		    <div class="layui-logo" style="left: 450px;">Choose</div>
+		    <!-- 头部区域（可配合layui已有的水平导航） -->
+		    <ul class="layui-nav layui-layout-left" style="left: 580px;">
+		      <li class="layui-nav-item"><a href="/dairy/dairy_home">All</a></li>
+		      <li class="layui-nav-item"><a onclick="show_daily()">Daily</a></li>
+		      <li class="layui-nav-item"><a onclick="show_voice()">Voice</a></li>
+		      <li class="layui-nav-item">
+		        <a href="javascript:;">topic</a>
+		        <dl class="layui-nav-child" >
+		          	<span th:each="topic:${session.topic_list}">
+		          		<dd><a th:text="${topic.topic_type}" th:value="${topic.id}" class="rel"></a></dd>
+		          	</span>
+			        <!-- 
+			          <dd><a onclick="show_feel()">感情</a></dd>
+			          <dd><a onclick="show_feel()">心情</a></dd>
+			          <dd><a onclick="show_feel()">娱乐</a></dd>
+			          <dd><a onclick="show_feel()">政治</a></dd>
+			          -->		          
+		        </dl>
+		        
+		      </li>
+		    </ul>
+		  </div>
+		</div>
+		<!-- 
+		<div class="chat_body" id="chatbody">
+			<div style="background-color:var(--white);width:650px;margin: 0 auto;">
+				<ul class="layui-timeline" style="position:relative;">
+					<i class="layui-icon" id="con" onclick="sendName()" style="font-size: 30px;"></i>
+				</ul>	
+		  	</div>  	
+			<div class="chat_wrapper1">
+			
+			</div>
+		</div>
+			 -->	
+			 
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-12 blog-grid-style hover-effect-one" id="con" style="left:200px">
+					<!-- 
+					<div class='single-blog-post' style='padding-top:20px'>
+						<div class="image-box"><img src=''></div>
+						<div class='post-meta-box bg-box'>
+							<ul class='author-meta clearfix'>
+								<li class='tag'>
+									<a href='#'>Daily</a>
+								</li>
+								<li class='date'>15 may , 2018</li>
+							</ul>
+							<h3 class='title'>
+								<a href='#'>This is a standard post with an image
+								</a>
+							</h3>
+							<p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment.
+							</p>
+							<div class='layui-btn-group'>
+								<button class='layui-btn layui-bg-black' style='padding-left: 20px; padding-right: 20px;'>
+									<i class='layui-icon'>&#xe600;</i>
+								</button>
+								<button class='layui-btn layui-bg-black comment' style='padding-left: 20px; padding-right: 20px;'>
+									<i class='layui-icon'>&#xe63a;</i>
+								</button>
+								<button class='layui-btn layui-bg-black' style='padding-left: 20px; padding-right: 20px;'>
+									<i class='layui-icon'>&#xe6c6;</i>
+								</button>
+							</div>
+							
+							<div class="commentAll" style="display:none">
+							    
+							    <div class="reviewArea clearfix">
+							        <textarea class="content comment-input" placeholder="Please enter a comment&hellip;" onkeyup="keyUP(this)"></textarea>
+							        <a href="javascript:;" class="plBtn">评论</a>
+							    </div>
+							    
+							    <div class="comment-show">
+							    </div>
+							    
+							</div>
+														
+						</div>
+					</div>
+					  -->
+					 <!--
+					 <div class='single-blog-post' style='padding-top:20px'>
+						<div class='post-meta-box bg-box'>
+							<ul class='author-meta clearfix'>
+								<li class='tag'><a href='#'>Voice</a></li>
+								<li class='date'>15 may , 2018</li>
+							</ul>
+							<h3 class='title'><a href='#'>This is a standard post with an image</a></h3>
+							<p>
+								<audio src='/pic/" +arr[i].url + "' controls='controls'></audio>
+							</p>
+							<div class='layui-btn-group'>
+								<button class='layui-btn layui-bg-black' style='padding-left: 20px; padding-right: 20px;'>
+									<i class='layui-icon'>&#xe600;</i>
+								</button>
+								<button class='layui-btn layui-bg-black' style='padding-left: 20px; padding-right: 20px;'>
+									<i class='layui-icon'>&#xe63a;</i>
+								</button>
+								<button class='layui-btn layui-bg-black' style='padding-left: 20px; padding-right: 20px;'>
+									<i class='layui-icon'>&#xe6c6;</i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				 -->
+				</div>	
+			</div> <!-- /.row -->
+		</div> <!-- /.container -->
+		<!--  /////////////////////////////////////////////////////////////// -->
+			
+		<script>
+		layui.use('element', function(){
+		  var element = layui.element;
+		  
+		});
+		</script>		
+		 
+		<script>
+		layui.use('carousel', function(){
+		  var carousel = layui.carousel;
+		  //建造实例
+		  carousel.render({
+		    elem: '#test1'
+		    ,width: '100%' //设置容器宽度
+		    ,arrow: 'always' //始终显示箭头
+		    ,height: '470px'
+		    //,anim: 'updown' //切换动画方式
+		  });
+		});
+		</script>
+		<script  src="/dairy/js/chat_index.js"></script>
+		
+		<!-- comment -->
+		<script type="text/javascript" src="/dairy/comment/js/jquery-1.12.0.min.js"></script>
+		<script type="text/javascript" src="/dairy/comment/js/jquery.flexText.js"></script>
+		<!--textarea高度自适应-->
+		<script type="text/javascript">
+		    $(function () {
+		        $('.content').flexText();
+		    });
+		</script>
+		<!--textarea限制字数-->
+		<script type="text/javascript">
+		    function keyUP(t){
+		        var len = $(t).val().length;
+		        if(len > 139){
+		            $(t).val($(t).val().substring(0,140));
+		        }
+		    }
+		</script>
+		<!--点击评论创建评论条-->
+		<script type="text/javascript">
+			var image_head = -1;
+			var comment_id;
+		    $('#con').on('click','.plBtn',function(){
+		    	var myDate = new Date();
+		        //获取当前年
+		        var year=myDate.getFullYear();
+		        //获取当前月
+		        var month=myDate.getMonth()+1;
+		        //获取当前日
+		        var date=myDate.getDate();
+		        var h=myDate.getHours();       //获取当前小时数(0-23)
+		        var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+		        if(m<10) m = '0' + m;
+		        var s=myDate.getSeconds();
+		        if(s<10) s = '0' + s;
+		        var now=year+'-'+month+"-"+date+" "+h+':'+m+":"+s;
+		        //获取输入内容
+		        //var oSize = $(this).siblings('.flex-text-wrap').find('.comment-input').val();
+		        var oSize = $(this).parent().find('.comment-input').val();		   
+		        console.log(oSize);
+		        //动态创建评论模块
+		        image_head = image_head + 1;
+		        if(image_head == 9){
+		        	image_head = -1;
+		        }
+		        //oHtml = '<div class="comment-show-con clearfix"><div class="comment-show-con-img pull-left"><img src="/dairy/img/' + image_head + '.png" alt=""></div> <div class="comment-show-con-list pull-left clearfix"><div class="pl-text clearfix"> <a href="#" class="comment-size-name">访客 : </a> <span class="my-pl-con">&nbsp;'+ oSize +'</span> </div> <div class="date-dz"> <span class="date-dz-left pull-left comment-time">'+now+'</span> <div class="date-dz-right pull-right comment-pl-block"> <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a><span class="pull-left date-dz-line">|</span>  <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">0</i>)</a> </div> </div><div class="hf-list-con"></div></div> </div>';
+		        oHtml = '<div class="comment-show-con clearfix"><div class="comment-show-con-img pull-left"><img src="/dairy/img/' + image_head + '.png" alt=""></div> <div class="comment-show-con-list pull-left clearfix"><div class="pl-text clearfix"> <a href="#" class="comment-size-name">访客 : </a> <span class="my-pl-con">&nbsp;'+ oSize +'</span> </div> <div class="date-dz"> <span class="date-dz-left pull-left comment-time">'+now+'</span> <div class="date-dz-right pull-right comment-pl-block"> </div> </div><div class="hf-list-con"></div></div> </div>';
+		        var dairy_id = $(this).parent().parent().parent().parent().attr("value");
+		        var dairy_type_name =$(this).parent().parent().siblings().eq(0).find('.tag').children().html();
+		        var dairy_type;		   
+		        if(dairy_type_name == 'Daily'){
+		        	dairy_type = 0;
+		        }else{
+		        	dairy_type = 1;
+		        }	     
+		        //保存到数据库中
+		        $.ajax({
+					type:"post",
+					url:"/dairy/save_comment",
+					dataType:"json",
+					data:{"dairy_id":dairy_id,"comment_context":oSize,"dairy_type":dairy_type,"commentTime":now,"comment_reply":true},
+					async:true,
+					success: function(data){
+						if(data.code ==1){
+							comment_id = data.object.id;
+							
+						}
+					}
+				});		
+		        if(oSize.replace(/(^\s*)|(\s*$)/g, "") != ''){
+		            $(this).parents('.reviewArea ').siblings('.comment-show').prepend(oHtml);
+		            $(this).siblings('.flex-text-wrap').find('.comment-input').prop('value','').siblings('pre').find('span').text('');
+		            $(this).parent().find('.comment-input').val("");
+		        }
+		    });
+		</script>
+		
+		
+		<!--点击回复动态创建回复块-->
+		<script type="text/javascript">
+		      $('#con').on('click','.pl-hf',function(){			    	
+		    	//获取回复人的名字
+		        var fhName = $(this).parents('.date-dz-right').parents('.date-dz').siblings('.pl-text').find('.comment-size-name').html();
+		        //回复@
+		        var fhN = '回复@'+fhName;		    
+		        //var oInput = $(this).parents('.date-dz-right').parents('.date-dz').siblings('.hf-con');
+		        var fhHtml = '<div class="hf-con pull-left"> <textarea class="content comment-input hf-input" placeholder="" onkeyup="keyUP(this)"></textarea> <a href="javascript:;" class="hf-pl">评论</a></div>';
+		        //显示回复
+		        if($(this).is('.hf-con-block')){
+		            $(this).parents('.date-dz-right').parents('.date-dz').append(fhHtml);
+		            $(this).removeClass('hf-con-block');
+		            $('.content').flexText();
+		            $(this).parents('.date-dz-right').siblings('.hf-con').find('.pre').css('padding','6px 15px');
+		            //console.log($(this).parents('.date-dz-right').siblings('.hf-con').find('.pre'))
+		            //input框自动聚焦
+		            $(this).parents('.date-dz-right').siblings('.hf-con').find('.hf-input').val('').focus().val(fhN);
+		        }else {
+		            $(this).addClass('hf-con-block');
+		            $(this).parents('.date-dz-right').siblings('.hf-con').remove();
+		        }
+		    });
+		</script>
+		<!--评论回复块创建-->
+		<script type="text/javascript">
+		    
+		      $('#con').on('click','.hf-pl',function(){    	
+		    	var oThis = $(this);
+		        var myDate = new Date();
+		        //获取当前年
+		        var year=myDate.getFullYear();
+		        //获取当前月
+		        var month=myDate.getMonth()+1;
+		        //获取当前日
+		        var date=myDate.getDate();
+		        var h=myDate.getHours();       //获取当前小时数(0-23)
+		        var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+		        if(m<10) m = '0' + m;
+		        var s=myDate.getSeconds();
+		        if(s<10) s = '0' + s;
+		        var now=year+'-'+month+"-"+date+" "+h+':'+m+":"+s;
+		        //获取输入内容
+		        var oHfVal = $(this).siblings('.flex-text-wrap').find('.hf-input').val();
+		        var comment_context = oHfVal;
+		        console.log(oHfVal)
+		        var oHfName = $(this).parents('.hf-con').parents('.date-dz').siblings('.pl-text').find('.comment-size-name').html();
+		        var oAllVal = '回复@'+oHfName;
+		        if(oHfVal.replace(/^ +| +$/g,'') == '' || oHfVal == oAllVal){
+		        	
+		        }else {
+		            $.getJSON("/dairy/comment/json/pl.json",function(data){
+		                var oAt = '';
+		                var oHf = '';
+		                $.each(data,function(n,v){
+		                    delete v.hfContent;
+		                    delete v.atName;
+		                    var arr;
+		                    var ohfNameArr;
+		                    if(oHfVal.indexOf("@") == -1){
+		                        data['atName'] = '';
+		                        data['hfContent'] = oHfVal;
+		                    }else {
+		                        arr = oHfVal.split(':');
+		                        ohfNameArr = arr[0].split('@');
+		                        data['hfContent'] = arr[1];
+		                        data['atName'] = ohfNameArr[1];
+		                    }
+		
+		                    if(data.atName == ''){
+		                        oAt = data.hfContent;
+		                    }else {
+		                        oAt = '回复<a href="#" class="atName">@'+data.atName+'</a> : '+data.hfContent;
+		                    }
+		                    oHf = data.hfName;
+		                });
+		
+		                var oHtml = '<div class="all-pl-con"><div class="pl-text hfpl-text clearfix"><a href="#" class="comment-size-name">其他访客 : </a><span class="my-pl-con">'+oAt+'</span></div><div class="date-dz"> <span class="date-dz-left pull-left comment-time">'+now+'</span> <div class="date-dz-right pull-right comment-pl-block">  <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a> <span class="pull-left date-dz-line">|</span> <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">0</i>)</a> </div> </div></div>';
+		                oThis.parents('.hf-con').parents('.comment-show-con-list').find('.hf-list-con').css('display','block').prepend(oHtml) && oThis.parents('.hf-con').siblings('.date-dz-right').find('.pl-hf').addClass('hf-con-block') && oThis.parents('.hf-con').remove();
+		               		                
+		                
+		            });
+		            //parent().parent().parent().parent()
+		            var dairy_id = $(this).parent().parent().parent().parent().parent().parent().parent().parent().attr("value");
+		            var dairy_type_name =$(this).parent().parent().parent().parent().parent().parent().siblings().eq(0).find('.tag').children().html();
+		            var dairy_type;			  
+			        if(dairy_type_name == 'Daily'){
+			        	dairy_type = 0;
+			        }else{
+			        	dairy_type = 1;
+			        }			       
+			      	//保存到数据库中
+			        $.ajax({
+						type:"post",
+						url:"/dairy/save_comment",
+						dataType:"json",
+						data:{"dairy_id":dairy_id,"comment_context":comment_context,"dairy_type":dairy_type,"commentTime":now,"comment_reply":false,"comment_id":comment_id},
+						async:true,
+						success: function(data){}
+					});		        
+		        }
+		    });		      
+		</script>
+		
+		<!--删除评论块-->
+		<script type="text/javascript">
+			/*
+		      $('#con').on('click','.removeBlock',function(){
+		        var oT = $(this).parents('.date-dz-right').parents('.date-dz').parents('.all-pl-con');
+		        if(oT.siblings('.all-pl-con').length >= 1){
+		            oT.remove();
+		        }else {
+		            $(this).parents('.date-dz-right').parents('.date-dz').parents('.all-pl-con').parents('.hf-list-con').css('display','none')
+		            oT.remove();
+		        }
+		        $(this).parents('.date-dz-right').parents('.date-dz').parents('.comment-show-con-list').parents('.comment-show-con').remove();
+		
+		    })
+		    */
+		</script>
+		<!--点赞-->
+		<script type="text/javascript">
+		      $('#con').on('click','.date-dz-z',function(){
+		        var zNum = $(this).find('.z-num').html();
+		        if($(this).is('.date-dz-z-click')){
+		            zNum--;
+		            $(this).removeClass('date-dz-z-click red');
+		            $(this).find('.z-num').html(zNum);
+		            $(this).find('.date-dz-z-click-red').removeClass('red');
+		        }else {
+		            zNum++;
+		            $(this).addClass('date-dz-z-click');
+		            $(this).find('.z-num').html(zNum);
+		            $(this).find('.date-dz-z-click-red').addClass('red');
+		        }
+		    })
+		</script>
+		 
+		
+ 
+</body>
+</html>

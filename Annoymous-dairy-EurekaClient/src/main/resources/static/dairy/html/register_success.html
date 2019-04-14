@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Sign up|Anonymous diary</title>
+    <link rel="stylesheet" href="/dairy/css/login-register.css"></link>
+	<link rel="stylesheet" href="/dairy/layui/css/layui.css">
+	<script type="text/javascript" src="/dairy/js/jquery-1.11.1.min.js" ></script>
+	<script src="/dairy/layui/layui.js"></script>
+	<script type="/dairy/register.js"></script>
+	<script>
+	layui.use(['layer', 'form'], function(){
+	  var layer = layui.layer
+	  ,form = layui.form;
+	});
+	</script>
+</head>
+<body>
+    <div id="login_bg" class ="login_bg" style="background-image:url(/dairy/img/register_success.jpg);"></div>
+    <h2 id="subheading" style="position:fixed;top:40%;font-size: larger;" class="register_msg" th:text="${session.register_msg.msg}"></h2>
+	<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo" style="width:50%;margin-top: 400px;margin-left:500px">
+  		<div class="layui-progress-bar layui-bg-green" lay-percent="0%"></div>
+	</div>
+ 
+	<div class="site-demo-button" style="margin-top: 20px; margin-bottom: 0;">
+  		<button class="layui-btn site-demo-active" data-type="setPercent" style="display:none">设置100%</button>
+  		<button class="layui-btn site-demo-active" data-type="loading" id="loading" style="display:none">模拟loading</button>
+	</div>
+
+	<script>
+	layui.use('element', function(){
+	  var $ = layui.jquery
+	  ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+	  
+	  //触发事件
+	  var active = {
+	    setPercent: function(){
+	      //设置50%进度
+	      element.progress('demo', '100%')
+	    }
+	    ,loading: function(othis){
+	      var DISABLED = 'layui-btn-disabled';
+	      if(othis.hasClass(DISABLED)) return;
+	    
+	      //模拟loading
+	      var n = 0, timer = setInterval(function(){
+	        n = n + Math.random()*10|0;  
+	        if(n>100){
+	          n = 100;
+	          clearInterval(timer);
+	          othis.removeClass(DISABLED);
+	        }
+	        element.progress('demo', n+'%');
+	      }, 300+Math.random()*1000);
+	      
+	      othis.addClass(DISABLED);
+	    }
+	  };
+	  
+	  $('.site-demo-active').on('click', function(){
+	    var othis = $(this), type = $(this).data('type');
+	    active[type] ? active[type].call(this, othis) : '';
+	  });
+	});
+	</script>
+	<!-- 自动加载 -->
+	<script type="text/javascript">
+		// 两秒后模拟点击
+		setTimeout(function() {
+		// IE
+		if(document.all) {
+		document.getElementById("loading").click();
+		}
+		// 其它浏览器
+		else {
+		var e = document.createEvent("MouseEvents");
+		e.initEvent("click", true, true);
+		document.getElementById("loading").dispatchEvent(e);
+		}
+		}, 2000);
+	</script>
+	
+	<!-- 当进入为100%时自动跳转页面 -->
+	<script type="text/javascript">
+		$(function(){
+			 setInterval(a,1000);	 
+			 function a(){
+			 	var t = $(".layui-progress-text").html();
+			 	if(typeof(t) == undefined){
+			 		
+			 	}else{
+			 		if(t == '100%'){
+			 			if('register success' == $(".register_msg").html()){
+			 				window.location.href="/dairy/login";
+			 			}
+			 			else{
+			 				window.location.href="/dairy/register";
+			 			}
+			 			
+			 		}
+			 	}
+			 }
+		})
+	</script>
+	<a href="#" id="loading" onclick="alert('clicked');"></a>  
+</body>
+</html>
