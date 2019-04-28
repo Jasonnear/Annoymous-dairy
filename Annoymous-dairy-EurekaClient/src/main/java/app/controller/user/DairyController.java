@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import app.config.DailyJsonObject;
 import app.config.JsonObject;
+import app.javabean.Announcement;
 import app.javabean.Chat;
 import app.javabean.Collect;
 import app.javabean.Comment;
@@ -32,6 +34,7 @@ import app.javabean.Future_voice;
 import app.javabean.Topic;
 import app.javabean.User;
 import app.javabean.Voice;
+import app.javabean.Warn;
 import app.service.user.DairyService;
 
 @Controller
@@ -86,6 +89,9 @@ public class DairyController {
 		//查询topic类型:
 		List<Topic> topic_list = dairyService.dairy_home();
 		session.setAttribute("topic_list", topic_list);
+		//查询所有的公告
+		List<Announcement> announcement_list = dairyService.show_announcement();
+		session.setAttribute("announcement_list", announcement_list);
 		return "dairy/html/dairy_home";
 	}
 	
@@ -116,6 +122,8 @@ public class DairyController {
 			//查询用户对应collect
 			List<Collect> collect_list = dairyService.findUserCollect(user);
 			session.setAttribute("collect_list", collect_list);
+			//用户
+			session.setAttribute("user", user);
 			return "dairy/html/dairy_myself";
 		}
 		
@@ -149,6 +157,8 @@ public class DairyController {
 			//查询用户对应collect
 			List<Collect> collect_list = dairyService.findUserCollect(user);
 			session.setAttribute("collect_list", collect_list);
+			//用户
+			session.setAttribute("user", user);
 			return "dairy/html/dairy_myself_voice";
 		}
 		
@@ -182,6 +192,8 @@ public class DairyController {
 			//查询用户对应collect
 			List<Collect> collect_list = dairyService.findUserCollect(user);
 			session.setAttribute("collect_list", collect_list);
+			//用户
+			session.setAttribute("user", user);
 			return "dairy/html/dairy_myself_future_daily";
 		}
 		
@@ -215,6 +227,8 @@ public class DairyController {
 			//查询用户对应collect
 			List<Collect> collect_list = dairyService.findUserCollect(user);
 			session.setAttribute("collect_list", collect_list);
+			//用户
+			session.setAttribute("user", user);
 			return "dairy/html/dairy_myself_future_voice";
 		}
 		
@@ -248,6 +262,8 @@ public class DairyController {
 			//查询用户对应collect
 			List<Collect> collect_list = dairyService.findUserCollect(user);
 			session.setAttribute("collect_list", collect_list);
+			//用户
+			session.setAttribute("user", user);
 			return "dairy/html/dairy_myself_collect";
 		}
 		
@@ -263,9 +279,6 @@ public class DairyController {
 	}
 	///////////////////////////////////////////////////////////////////////////////
 	
-	/**
-	 * 用户登录与注册
-	 */
 	
 	/**
 	 * 检查邮箱是否已经注册
@@ -439,7 +452,7 @@ public class DairyController {
 		if(flag){
 			return "redirect:/dairy/dairy_myself";
 		}else{
-			return "404";
+			return "redirect:/dairy/four";
 		}
 	}
 	/////////////////////////////////////////////////////////
@@ -517,7 +530,7 @@ public class DairyController {
 		if(flag){
 			return "redirect:/dairy/dairy_myself";
 		}else{
-			return "404";
+			return "redirect:/dairy/four";
 		}
 	}
 	
@@ -542,8 +555,7 @@ public class DairyController {
 	
 	/**
 	 * 消息推送
-	 */	
-	
+	 */		
 	@MessageMapping("/send")
 	public void send(){
 		
@@ -713,7 +725,7 @@ public class DairyController {
 	public String show_future_daily_myself(String id,HttpSession session){
 		Future_daily future_daily = dairyService.show_future_daily_myself(id);
 		session.setAttribute("md", future_daily.getMd());
-		return "/dairy/editor/examples/show";
+		return "dairy/editor/examples/show";
 	}
 	
 	/**
@@ -725,7 +737,7 @@ public class DairyController {
 		if(flag){
 			return "redirect:/dairy/dairy_myself";
 		}else{
-			return "404";
+			return "redirect:/dairy/four";
 		}
 	}
 	/////////////////////////////////////////////
@@ -737,7 +749,7 @@ public class DairyController {
 		//获取DairyType
 		List<DairyType> dairyType_list = dairyService.dairy_myself();
 		session.setAttribute("dairyType_list", dairyType_list);
-		return "/dairy/voice/examples/future_index";
+		return "dairy/voice/examples/future_index";
 	}
 	
 	/**
@@ -807,7 +819,7 @@ public class DairyController {
 		if(flag){
 			return "redirect:/dairy/dairy_myself";
 		}else{
-			return "404";
+			return "redirect:/dairy/four";
 		}
 	}
 	
@@ -816,10 +828,15 @@ public class DairyController {
 	 * 每天的0点0时0分触发
 	 * 秒 分钟 时 日 月 星期 [年]
 	 * 0 0 0 * * * 
-	 */
-	
+	 */	
 	@Scheduled(cron="0 0 0 * * *")
 	public void open(){
+		dairyService.open();
+	}
+	
+	@RequestMapping("/testopen")
+	@ResponseBody
+	public void testopen(){
 		dairyService.open();
 	}
 	
@@ -849,7 +866,7 @@ public class DairyController {
 		if(user == null){
 			JsonObject jsonObject_ = new JsonObject();
 			jsonObject_.setMsg("save failure");
-			return "404";
+			return "dairy/error/404";
 		}
 		List<Object> object_list =  dairyService.show_more(user.getId(),dairy_type);
 		if(object_list.size() != 0){
@@ -1002,6 +1019,147 @@ public class DairyController {
 		}
 		int count = dairyService.add_gooCount(dairy_id,user.getId());
 		jsonObject.setObject(count);
+		return jsonObject;
+	}
+	
+	/**
+	 * 公告发布
+	 */
+	/*
+	@MessageMapping("/sendAnnouncement")
+	public void sendAnnouncement(){
+		dairyService.sendAnnouncement();
+	}
+	*/
+	
+	/**
+	 * 阅读公告
+	 * @param id
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/announcement_read")
+	public String announcement_read(String id,HttpSession session){
+		User user = (User) session.getAttribute("user");
+		if(user != null){
+			Announcement announcement = dairyService.announcement_read(id);
+			if(announcement != null){
+				session.setAttribute("md", announcement.getMd());
+			}
+		}
+		return "dairy/editor/examples/announcement-show";
+	}
+	
+	////////////////////////////////////////////////////////////////////
+	/**
+	 * 404页面
+	 */
+	@RequestMapping("/four")
+	public String four(){
+		return "dairy/error/404";
+	}
+	
+	//////////////////////////////////////////////////////////////////////
+	
+	/**
+	 * 跳转到设置页面
+	 * @return
+	 */
+	@RequestMapping("/dairy_set")
+	public String dairy_set(HttpSession session){
+		User user = (User) session.getAttribute("user");
+		if(user != null){
+			session.setAttribute("user", user);
+			return "dairy/html/dairy_set";
+		}
+		return "dairy/error/404";
+	}
+	
+	/**
+	 * 用户修改个人信息
+	 * @param user1
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/user_update_info")
+	@ResponseBody
+	public JsonObject user_update_info(User user1,HttpSession session){
+		JsonObject jsonObject = new JsonObject();
+		User user = (User) session.getAttribute("user");
+		if(user != null){
+			User user2 = dairyService.user_update_info(user1);
+			if(user2 != null){
+				jsonObject.setCode(1);
+				jsonObject.setMsg("update info success");
+			}
+		}
+		return jsonObject;
+	}
+	
+	
+	///////////////////////
+	
+	/**
+	 * 非邮件提醒功能页面
+	 * @return
+	 */
+	@RequestMapping("/dairy_remind")
+	public String dairy_remind(HttpSession session){
+		//查出dairyType类型
+		List<DairyType> dairyType_list = dairyService.dairy_myself();
+		session.setAttribute("dairyType_list", dairyType_list);
+		User user = null;
+		if(session.getAttribute("user") != null){
+			user = (User) session.getAttribute("user");
+			//查出用户对应的警告信息
+			List<Warn> warn_list = dairyService.dairy_remind(user);
+			session.setAttribute("warn_list", warn_list);
+			session.setAttribute("user", user);
+			return "dairy/html/dairy_remind";
+		}else{
+			return "redirect:/dairy/error/404";
+		}
+	}
+	
+	/**
+	 * 非邮件提醒将未读变为可读
+	 * @param id
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/can_read")
+	@ResponseBody
+	public JsonObject can_read(String id,HttpSession session){
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.setMsg("failure");
+		User user = (User) session.getAttribute("user");
+		if(user != null){
+			boolean flag = dairyService.can_read(id);
+			if(flag){
+				jsonObject.setCode(1);
+				jsonObject.setMsg("success");
+			}
+		}
+		return jsonObject;
+	}
+	
+	/**
+	 * 查看是否存在有未读的非邮件，若有图标则显示【1】，否则不显示【0】
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/isremind")
+	@ResponseBody
+	public JsonObject isremind(String id,HttpSession session){
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.setMsg("failure");
+		User user = (User) session.getAttribute("user");
+		if(user != null){
+			boolean flag = dairyService.isremind(id);
+			if(flag){
+				jsonObject.setCode(1);
+			}
+		}
 		return jsonObject;
 	}
 }

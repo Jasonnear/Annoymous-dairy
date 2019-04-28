@@ -1,5 +1,7 @@
 package app.javabean;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +13,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "good")
-public class Good {
+public class Good implements Serializable{
 
 	/**
 	 * 点赞的id

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8" />
+        <title>Simple example - Editor.md examples</title>
+        <link rel="stylesheet" href="/dairy/editor/examples/css/style.css" />
+        <link rel="stylesheet" href="/dairy/editor/css/editormd.css" />
+        <link rel="stylesheet" href="/dairy/editor/css/bootstrap.min.css"/>
+        <script src="/dairy/editor/examples/js/jquery.min.js"></script>
+        <script src="/dairy/editor/editormd.min.js"></script>
+        
+        <!-- header -->
+        <link rel="stylesheet" href="/dairy/css/bootstrap.min.css">
+    	<link rel="stylesheet" href="/dairy/css/templatemo-style.css">
+        <!-- layui -->
+	    <link rel="stylesheet" href="/dairy/layui/css/layui.css"> 
+	    <script src="/dairy/layui/layui.js"></script>
+	    <script>
+		layui.use(['layer', 'form'], function(){
+		  var layer = layui.layer
+		  ,form = layui.form;	  
+		});
+		</script>
+    </head>
+    <body>
+		<div id="wrapper">
+	      <h1 style="margin-top:42px;margin-bottom:50px;font-size:80px">公告发布</h1>
+	    </div>
+		<!-- editor编辑 -->
+        <div id="layout">
+            <section class="tm-section" style="padding-bottom: 0px;">
+	            <div class="container-fluid" style="max-width: 700px;">
+	              	<input type="text" id="article" name="article" class="form-control" placeholder="Article"/>	              	
+	              	<button class="layui-btn  layui-btn-lg" onclick="save()" id="editor_save" style="position: absolute;margin-left: 700px;margin-top: -47px;">提交</button>	                              
+	            </div>	           												           
+        	</section> 
+        	
+            <div id="test-editormd">
+            	<textarea style="display:none;" id="test-editormd-markdown-doc" class="editormd-markdown-textarea" name="test-editormd-markdown-doc"></textarea>
+        		<!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
+        		<textarea id="test-editormd-html-doc" class="editormd-html-textarea" name="test-editormd-html-doc"></textarea>
+    		</div>
+        </div>
+		<!-- js -->
+        <script type="text/javascript">
+			var testEditor;
+            $(function() {
+                testEditor = editormd("test-editormd", {
+                    width   : "90%",
+                    height  : 640,
+                    syncScrolling : "single",
+                    path    : "/dairy/editor/lib/",
+                    imageUpload : true,
+                    imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                    imageUploadURL : "/admin/announcement_uploadfile",
+                    saveHTMLToTextarea : true,
+                    emoji: true,
+                    onload : function() {
+                    	$(".editormd-preview-container").css("font-size","20px");
+                    	
+                    }
+                      
+                });            	                
+            });                       
+            
+            <!--保存-->
+            function save() {
+                console.log($("#test-editormd-markdown-doc").text());
+                console.log($("#test-editormd-html-doc").text());               
+                
+                $.ajax({
+                    url: "/admin/announcement_save",
+                    type: "post",
+                    async: true,
+                    data: {
+                        "md": $("#test-editormd-markdown-doc").text(),
+                        "html": $("#test-editormd-html-doc").text(),
+                        "article":$("#article").val(),
+                    },
+                    dataType: "json",
+                    success:function(data) {
+                    	if(data.code == 1){
+                    		window.location.href="/admin/announcement_list";                  			
+                    	}else{
+                    		//404
+                    	}
+                    }           
+                });
+                
+            }                   
+        </script>
+      
+        <script>
+		//公开开关
+		layui.use('form', function(){
+		  var form = layui.form;
+		});
+		</script>
+		       
+		
+    </body>
+</html>

@@ -33,4 +33,17 @@ public interface DailyRepositorySelect extends Repository<Daily, String>{
 	@Query(value = "from Daily where user_id = ?1 order by createTime")
 	public List<Daily> find_all(String user_id);
 
+	/**
+	 * 查找全部
+	 * @return
+	 */
+	@Query(value = "from Daily")
+	public List<Daily> findAll();
+	
+	/**
+	 * 查找公开的全部Daily数据
+	 */
+	@Query(value = "from Daily where permission = ?1 and pm = ?2")
+	public List<Daily> findByPermission(boolean permission,boolean pm);
+
 }

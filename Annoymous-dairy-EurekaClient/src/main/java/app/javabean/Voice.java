@@ -1,5 +1,6 @@
 package app.javabean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="voice")
-public class Voice {
+public class Voice implements Serializable{
 
 	/**
 	 * 录音id主键

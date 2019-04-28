@@ -1,5 +1,6 @@
 package app.javabean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable{
 
 	/**
 	 * user的唯一标识
@@ -112,6 +113,25 @@ public class User {
 	 */
 	@OneToMany(cascade = CascadeType.ALL , mappedBy = "to_userid")
 	private List<Chat> chat_to_userid_list = new ArrayList<Chat>();
+	
+	/**
+	 * User:Announcement = 1:n
+	 */
+	@OneToMany(cascade = CascadeType.ALL , mappedBy = "user_id")
+	private List<Announcement> announcement_list = new ArrayList<Announcement>();
+	
+	/**
+	 * User:Warn = 1:n
+	 */
+	@OneToMany(cascade = CascadeType.ALL , mappedBy = "user_id")
+	private List<Warn> warn_list = new ArrayList<Warn>();
+	
+	/**
+	 * 0:customer
+	 * 1:admin
+	 */
+	@Column
+	private int cora = 0;
 	
 	public String getId() {
 		return id;
@@ -232,6 +252,28 @@ public class User {
 	public void setChat_to_userid_list(List<Chat> chat_to_userid_list) {
 		this.chat_to_userid_list = chat_to_userid_list;
 	}
-	
-	
+
+	public int getCora() {
+		return cora;
+	}
+
+	public void setCora(int cora) {
+		this.cora = cora;
+	}
+
+	public List<Announcement> getAnnouncement_list() {
+		return announcement_list;
+	}
+
+	public void setAnnouncement_list(List<Announcement> announcement_list) {
+		this.announcement_list = announcement_list;
+	}
+
+	public List<Warn> getWarn_list() {
+		return warn_list;
+	}
+
+	public void setWarn_list(List<Warn> warn_list) {
+		this.warn_list = warn_list;
+	}
 }

@@ -1,10 +1,12 @@
 package app.service.user;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import app.config.JsonObject;
+import app.javabean.Announcement;
 import app.javabean.Chat;
 import app.javabean.Collect;
 import app.javabean.Comment;
@@ -15,6 +17,7 @@ import app.javabean.Future_voice;
 import app.javabean.Topic;
 import app.javabean.User;
 import app.javabean.Voice;
+import app.javabean.Warn;
 
 public interface DairyService {
 
@@ -257,6 +260,49 @@ public interface DairyService {
 	 */
 	public int add_gooCount(String dairy_id,String user_id);
 	
+	/**
+	 * 查询所有的公告
+	 * @return
+	 */
+	public List<Announcement> show_announcement();
 	
-
+	/**
+	 * 公告发布
+	 */
+	public void sendAnnouncement();
+	
+	/**
+	 * 阅读公告
+	 * @param id
+	 * @return
+	 */
+	public Announcement announcement_read(String id);
+	
+	/**
+	 * 用户修改个人信息
+	 * @param user1
+	 */
+	public User user_update_info(User user1);
+	
+	/**
+	 * 查出用户对应的警告信息
+	 * @param user
+	 * @return
+	 */
+	public List<Warn> dairy_remind(User user);
+	
+	/**
+	 * 非邮件提醒将未读变为可读
+	 * @param id
+	 * @return
+	 */
+	public boolean can_read(String id);
+	
+	/**
+	 * 查看是否存在有未读的非邮件，若有图标则显示【1】，否则不显示【0】
+	 * @param id
+	 * @return
+	 */
+	public boolean isremind(String id);
+	
 }

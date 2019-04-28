@@ -40,4 +40,19 @@ public interface VoiceRepositorySelect extends Repository<Voice, String>{
 	@Query(value = "from Voice where user_id = ?1 order by createTime")
 	public List<Voice> find_all1(String user_id);
 
+	/**
+	 * 查询全部
+	 * @return
+	 */
+	@Query(value = "from Voice")
+	public List<Voice> findAll();
+
+	/**
+	 * 查询公开的Voice的数据
+	 * @param b
+	 * @return
+	 */
+	@Query(value = "from Voice where permission = ?1 and pm = ?2")
+	public List<Voice> findByPermission(boolean permission,boolean pm);
+
 }

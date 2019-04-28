@@ -1,5 +1,6 @@
 package app.javabean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name="future_voice")
-public class Future_voice {
+public class Future_voice implements Serializable{
 
 	/**
 	 * 未来录音id主键

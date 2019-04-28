@@ -1,5 +1,6 @@
 package app.javabean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name="future_daily")
-public class Future_daily {
+public class Future_daily implements Serializable{
 
 	/**
 	 * 主键

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Classic - Responsive Bootstrap 4.0 Template</title>
+
+    <!-- load stylesheets -->
+    <link rel="stylesheet" href="/dairy/css/bootstrap.min.css">                                      <!-- Bootstrap style -->
+    <link rel="stylesheet" href="/dairy/css/templatemo-style.css">                                   <!-- Templatemo style -->
+	<script src="/dairy/js/jquery-1.8.0.min.js"></script>
+    <!--layui-->
+    <link rel="stylesheet" href="/dairy/layui/css/layui.css">
+    <script src="/dairy/layui/layui.js"></script>
+    <script>
+	layui.use(['layer', 'form'], function(){
+	  var layer = layui.layer
+	  ,form = layui.form;	  
+	});
+	</script>
+	
+</head>
+
+    <body>
+    <div style="display:none" th:text="${session.user.id}" id="user_id1"></div>
+       <!-- 轮播 -->
+        <div class="tm-header">
+            <div class="container-fluid">
+                <div class="tm-header-inner">
+                    <a href="#" class="navbar-brand tm-site-name" style="font-size:30px">Dairy</a>
+                    
+                    <!-- navbar -->
+                    <nav class="navbar tm-main-nav">
+
+                        <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar">
+                            &#9776;
+                        </button>
+                        <!-- 按钮 -->
+                        <div class="collapse navbar-toggleable-sm" id="tmNavbar">
+                            <ul class="nav navbar-nav">
+                                <li class="nav-item">
+                                    <a href="/dairy/dairy_home" class="nav-link" style="font-size:20px">主页</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/dairy/dairy_myself" class="nav-link" style="font-size:20px">日记</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a href="#" class="nav-link" style="font-size:20px">设置</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/dairy/dairy_remind" class="nav-link" style="font-size:20px">提醒<span class="layui-badge-dot" style="top:-3px"></span></a>
+                                </li>
+                            </ul>                        
+                        </div>
+                        
+                    </nav>  
+
+                </div>                                  
+            </div>            
+        </div>
+		<!-- 最上面的图片 -->
+		<div class="layui-carousel" id="test1">
+		  <div carousel-item>
+		    <div class="tm-home-img-container">
+            	<img alt="Image" class="hidden-lg-up img-fluid">
+        	</div>
+		    <div class="tm-home-img-container1">
+            	<img alt="Image" class="hidden-lg-up img-fluid">
+        	</div>
+		    <div class="tm-home-img-container2">
+            	<img alt="Image" class="hidden-lg-up img-fluid">
+        	</div>
+		    <div class="tm-home-img-container3">
+            	<img alt="Image" class="hidden-lg-up img-fluid">
+        	</div>
+		  </div>
+		</div>
+		<!--选择器-->
+		<div class="layui-layout layui-layout-admin">
+		  <div class="layui-header">
+		    <div class="layui-logo" style="left: 650px;"></div>
+		    <!-- 头部区域（可配合layui已有的水平导航） -->
+		    <ul class="layui-nav layui-layout-left" style="left: 820px;">
+		      <li class="layui-nav-item"><a href=""></a></li>
+		      <li class="layui-nav-item">
+		        <a href="javascript:;"></a>
+		        <dl class="layui-nav-child">
+		          <span th:each="dairyType:${session.dairyType_list}">
+		          	<dd><a th:text="${dairyType.dairy_type}" th:value="${dairyType.id}" class="rel"></a></dd>
+		          </span>
+		          
+		          <!-- 
+		          <dd><a href="/dairy/daily_index">daily</a>
+		          <dd><a href="/dairy/voice_index">voice</a></dd>
+		           -->
+		        </dl>
+		      </li>
+		    </ul>
+		  </div>
+		</div>
+	
+        <!-- 表单 -->       
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" style="margin-left:550px">
+            <section>
+                <h1 class="tm-gold-text tm-form-title" style="margin-top:50px">修改个人信息</h1>               
+                <form method="post" class="tm-contact-form form1">
+                	<span style="display:none" class="user_id" th:text="${session.user.id}"></span>                                
+                    <div class="form-group">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username" th:value="${session.user.username}"/>
+                        <span id="username_notice" style="position: absolute; margin-left: 950px; margin-top:-40px;font-size: 30px;color: red; width:80%"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" th:value="${session.user.email}"/>
+                        <span id="email_notice" style="position: absolute; margin-left: 950px; margin-top:-40px;font-size: 30px;color: red; width:80%"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="password"/>
+                    </div>                                                 
+                    <input type="button" class="tm-btn" style="font-size:20px;margin-left:700px" id="update_info" value="提交"></input>                          
+                </form>   
+            </section>                                                                                     
+         </div>
+        <!--  -->   			
+        
+        <!--  -->	  
+		<script>
+		//JavaScript代码区域
+		layui.use('element', function(){
+		  var element = layui.element;
+		  
+		});
+		</script>		
+		 
+		<script>
+		layui.use('carousel', function(){
+		  var carousel = layui.carousel;
+		  //建造实例
+		  carousel.render({
+		    elem: '#test1'
+		    ,width: '100%' //设置容器宽度
+		    ,arrow: 'always' //始终显示箭头
+		    ,height: '470px'
+		    //,anim: 'updown' //切换动画方式
+		  });
+		});
+		</script>
+		<!-- 点击提交按钮触发 -->
+		<script>
+			/*提醒小图标*/
+			function isremind(){
+				var id = $("#user_id1").html();
+				var here = $(".layui-badge-dot");		
+				$.ajax({
+					type:"post",
+					url:"/dairy/isremind",
+					data:{"id":id},
+					dataType:"json",
+					async:true,
+					success:function(data){
+						if(data.code == 0){
+							here.css("display","none");
+						}
+					}
+				});	
+			}
+			$(function(){
+				isremind();
+				$("#username").blur(function(){
+					if($("#username").val()!=""){
+						var username = $("#username").val();
+						$.ajax({
+							type:"post",
+							url:"/dairy/check_username",
+							data:{"username":username},
+							dataType:"json",
+							async:true,
+							success:function(data)
+							{
+								$("#username_notice").html(data.msg);
+							}
+						});
+					}else{
+						$("#username_notice").html("");
+					}
+				})
+				
+				$("#email").blur(function(){
+					if($("#email").val()!=""){
+						//判断email格式是否正确
+						if($("#email").val().indexOf('@qq.com') == -1){
+								alert("Your email is not correct !");						
+						}
+						else if($("#email").val().length > 17){
+								alert("Your email is not correct !");
+						}else{
+							var email = $("#email").val();
+							$.ajax({
+								type:"post",
+								url:"/dairy/check_email",
+								data:{"email":email},
+								dataType:"json",
+								async:true,
+								success:function(data)
+								{
+									$("#email_notice").html(data.msg);
+								}
+							});
+						}
+					}else{
+						$("#email_notice").html("");
+					}			
+				});
+				
+				$("#update_info").click(function(){
+					var username = $("#username").val();
+					var email = $("#email").val();
+					var password = $("#password").val();
+					var id = $(this).parents('.form1').find('.user_id').html();					
+					if(password == '' || username == ''){
+						alert("submit error");
+					}else{						
+						$.ajax({
+							type:"post",
+							url:"/dairy/user_update_info",
+							data:{"id":id,"username":username,"email":email,"password":password},
+							dataType:"json",
+							async:true,
+							success:function(data)
+							{							
+								if(data.code == 1){
+									layer.msg('修改成功');
+									//这里如果可以弄一个定时器
+									window.location.href="/dairy/login";
+								}else{
+									layer.msg('修改失败');
+									window.location.href="/dairy/four";
+								}						
+							}
+						});					
+					}					
+				})
+				
+				
+			})		
+		</script>
+		
+       
+</body>
+</html>

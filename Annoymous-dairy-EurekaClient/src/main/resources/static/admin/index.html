@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Dairy 管理界面</title>
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/admin/css/font.css">
+	<link rel="stylesheet" href="/admin/css/xadmin.css">
+	
+    <script src="/admin/js/jquery.min.js"></script>
+    <script src="/admin/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/admin/js/xadmin.js"></script>
+    
+    <!-- 管理界面最开始展示的页面数据 -->
+    <link rel="shortcut icon" href="/admin/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/admin/css/font.css">
+    <link rel="stylesheet" href="/admin/css/xadmin.css">
+
+</head>
+<body>
+    <!-- 顶部开始 -->
+    <div class="container">
+        <div class="logo"><a href="index.html">Dairy 管理界面</a></div>
+        <div class="left_open">
+            <i title="展开左侧栏" class="iconfont">&#xe699;</i>
+        </div>
+        <ul class="layui-nav right" lay-filter="">
+          <li class="layui-nav-item">
+            <a href="javascript:;" th:text="${session.admin.username}"></a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+              <dd><a onClick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
+              <dd><a onClick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
+              <dd><a href="login.html">退出</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item to-index"><a href="#">前台首页</a></li>
+        </ul>
+        
+    </div>
+    <!-- 顶部结束 -->
+    <!-- 中部开始 -->
+     <!-- 左侧菜单开始 -->
+    <div class="left-nav">
+      <div id="side-nav">
+        <ul id="nav">
+        
+             <li >
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6eb;</i>
+                    <cite>主页</cite>
+                    <i class="iconfont nav_right">&#xe6a7;</i>
+                </a>          
+            </li>
+            
+             <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6e4;</i>
+                    <cite>日记管理</cite>
+                    <i class="iconfont nav_right">&#xe6a7;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li><a _href="/admin/daily_list"><i class="iconfont">&#xe6a7;</i><cite>日常日记管理</cite></a></li>
+                    <li><a _href="/admin/voice_list"><i class="iconfont">&#xe6a7;</i><cite>回声日记管理</cite></a></li>
+                </ul>
+            </li>                
+            
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b8;</i>
+                    <cite>用户管理</cite>
+                    <i class="iconfont nav_right">&#xe6a7;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li><a _href="/admin/user_list"><i class="iconfont">&#xe6a7;</i><cite>用户管理</cite></a></li>
+                </ul>     
+            </li>
+            
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b8;</i>
+                    <cite>消息管理</cite>
+                    <i class="iconfont nav_right">&#xe6a7;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li><a _href="/admin/announcement_list"><i class="iconfont">&#xe6a7;</i><cite>公告管理</cite></a></li>
+                    <li><a _href="/admin/comment_list"><i class="iconfont">&#xe6a7;</i><cite>评论管理</cite></a></li>
+                </ul>     
+            </li>
+              
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe69e;</i>
+                    <cite>消息发布</cite>
+                    <i class="iconfont nav_right">&#xe6a7;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li><a _href="/admin/announcement"><i class="iconfont">&#xe6a7;</i><cite>公告</cite></a></li>
+                </ul>          
+            </li>
+                                                
+               
+			<li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6ae;</i>
+                    <cite>系统管理</cite>
+                    <i class="iconfont nav_right">&#xe6a7;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li><a _href="http://localhost:8500"><i class="iconfont">&#xe6a7;</i><cite>监控服务</cite></a></li>
+                </ul>          
+            </li>     
+      </div>
+    </div>
+    <!-- <div class="x-slide_left"></div> -->
+    <!-- 左侧菜单结束 -->
+    <!-- 右侧主体开始 -->
+    <div class="page-content">
+        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+          <ul class="layui-tab-title">
+            <li class="home"><i class="layui-icon">&#xe68e;</i>当日数据</li>
+          </ul>
+          <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+              <!-- 1  -->
+		      <div class="x-body layui-anim layui-anim-up">
+		        <blockquote class="layui-elem-quote">登录者：<span class="x-red" th:text="${session.admin.username}"></span>&nbsp;&nbsp;登录时间：<span th:text="${session.admin.login_time}"></span></blockquote>
+		        <fieldset class="layui-elem-field">
+		            <legend>当天数据统计</legend>
+		            <div class="layui-field-box">
+		                <div class="layui-col-md12">
+		                    <div class="layui-card">
+		                        <div class="layui-card-body">
+		                            <div class="layui-carousel x-admin-carousel x-admin-backlog" lay-anim="" lay-indicator="inside" lay-arrow="none" style="width: 100%; height: 90px;">
+		                                <div carousel-item="">
+		                                    <ul class="layui-row layui-col-space10 layui-this">
+		                                        <li class="layui-col-xs2">
+		                                            <a href="javascript:;" class="x-admin-backlog-body">
+		                                                <h3>发布的文章数</h3>
+		                                                <p>
+		                                                    <cite th:text="${session.count_data['daily_count']}"></cite></p>
+		                                            </a>
+		                                        </li>
+		                                        <li class="layui-col-xs2">
+		                                            <a href="javascript:;" class="x-admin-backlog-body">
+		                                                <h3>发布的录音数</h3>
+		                                                <p>
+		                                                    <cite th:text="${session.count_data['voice_count']}"></cite></p>
+		                                            </a>
+		                                        </li>
+		                                        
+		                                        <li class="layui-col-xs2">
+		                                            <a href="javascript:;" class="x-admin-backlog-body">
+		                                                <h3>访问人数</h3>
+		                                                <p>
+		                                                    <cite th:text="${session.count_data['user_count']}"></cite></p>
+		                                            </a>
+		                                        </li>		                                       
+		                                    </ul>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </fieldset>		  	       		        
+		    </div>
+            <!-- 1  -->
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="page-content-bg"></div>
+    <!-- 右侧主体结束 -->
+    <!-- 中部结束 -->
+    <!-- 底部开始 -->
+    <!--<div class="footer">
+        <div class="copyright">Copyright ©2019 L-admin v2.3 All Rights Reserved</div>  
+    </div>-->
+    <!-- 底部结束 -->
+</body>
+</html>

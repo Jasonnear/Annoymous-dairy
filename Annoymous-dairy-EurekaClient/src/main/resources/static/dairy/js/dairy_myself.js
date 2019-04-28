@@ -1,5 +1,23 @@
+/*提醒小图标*/
+function isremind(){
+	var id = $("#user_id1").html();
+	var here = $(".layui-badge-dot");		
+	$.ajax({
+		type:"post",
+		url:"/dairy/isremind",
+		data:{"id":id},
+		dataType:"json",
+		async:true,
+		success:function(data){
+			if(data.code == 0){
+				here.css("display","none");
+			}
+		}
+	});	
+}
+
 $(function(){
-	
+	isremind();
 	$(".rel").on('click',function(){
 		var value = $(this).attr("value");
 		if(value == 0){

@@ -1,5 +1,6 @@
 package app.javabean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="collect")
-public class Collect {
+public class Collect implements Serializable{
 
 	/**
 	 * 主键

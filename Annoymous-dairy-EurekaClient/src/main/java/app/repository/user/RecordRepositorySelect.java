@@ -50,4 +50,15 @@ public interface RecordRepositorySelect extends Repository<Record, Integer>{
 	public List<Record> show_topic(int topic_id);
 
 
+	/**
+	 * 查询发布的daily和voice
+	 * @param i
+	 * @return
+	 */
+	@Query(value = "from Record where dairytype_id = ?1")
+	public List<Record> findAllBydairy_type(int i);
+
+
+
+
 }

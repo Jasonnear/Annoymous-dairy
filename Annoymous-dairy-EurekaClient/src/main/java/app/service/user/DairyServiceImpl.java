@@ -5,9 +5,11 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import app.config.JsonObject;
+import app.javabean.Announcement;
 import app.javabean.Collect;
 import app.javabean.Comment;
 import app.javabean.Daily;
@@ -35,6 +38,11 @@ import app.javabean.Record;
 import app.javabean.Topic;
 import app.javabean.User;
 import app.javabean.Voice;
+import app.javabean.Warn;
+import app.repository.admin.AnnouncementPagingAndSortingRepository;
+import app.repository.admin.AnnouncementRepository;
+import app.repository.admin.WarnRepository;
+import app.repository.admin.WarnRepositorySelect;
 import app.repository.user.ChatRepository;
 import app.repository.user.ChatRepositorySelect;
 import app.repository.user.CollectRepository;
@@ -139,6 +147,19 @@ public class DairyServiceImpl implements DairyService{
 	
 	@Resource(name = "commentPagingAndSortingRepository")
 	private CommentPagingAndSortingRepository commentPagingAndSortingRepository;
+	
+	@Resource(name = "announcementPagingAndSortingRepository")
+	private AnnouncementPagingAndSortingRepository announcementPagingAndSortingRepository;
+	
+	@Resource(name = "announcementRepository")
+	private AnnouncementRepository announcementRepository;
+	
+	@Resource(name = "warnRepository")
+	private WarnRepository warnRepository;
+	
+	@Resource(name = "warnRepositorySelect")
+	private WarnRepositorySelect warnRepositorySelect;
+	
 	/**
 	 * 查询topic类型
 	 */
@@ -330,9 +351,13 @@ public class DairyServiceImpl implements DairyService{
 		String html = daily.getHtml();
 		if(html.contains(".jpg") || html.contains(".png") || html.contains(".jpeg")){
 			int start = daily.getHtml().indexOf("/pic/",0);
-			int end = daily.getHtml().indexOf("\"", daily.getHtml().indexOf("/pic/"));	
-			String first_image = daily.getHtml().substring(start,end);
-			daily.setFirst_image_url(first_image);
+			if(start !=-1){
+				int end = daily.getHtml().indexOf("\"", daily.getHtml().indexOf("/pic/"));	
+				String first_image = daily.getHtml().substring(start,end);
+				daily.setFirst_image_url(first_image);
+			}else{
+				daily.setFirst_image_url("/pic/default_first_image_url.jpg");
+			}
 		}else{
 			daily.setFirst_image_url("/pic/default_first_image_url.jpg");
 		}
@@ -455,14 +480,11 @@ public class DairyServiceImpl implements DairyService{
 				List<String> user_id_list = null;
 				//查找发过相同topic的所有用户的id,如果topic_id为0则查出全部
 				if(daily.getTopic_id() == 0){
-					user_id_list = userRepositorySelect.find_all();
-					System.out.println("send2-1");
+					user_id_list = userRepositorySelect.find_all();					
 				}else{
 					user_id_list = dailyRepositorySelect.send(daily.getTopic_id());
-					System.out.println("send2-2");
 				}
 				//通过id查找整条Daily【由于本方法的参数Daily是一个不完整的数据】	
-				System.out.println(user_id_list.toString());
 				Daily daily_ = dailyRepositorySelect.find_one(daily.getId());		
 				if(user_id_list.size() != 0 ){
 					for(String id:user_id_list){
@@ -493,7 +515,6 @@ public class DairyServiceImpl implements DairyService{
 	 */
 	@Override
 	public void send2(Daily daily) {
-		System.out.println("send2" + daily.getId());
 		List<String> user_id_list = null;
 		//查找发过相同topic的所有用户的id,如果topic_id为0则查出全部
 		if(daily.getTopic_id() == 0){
@@ -605,8 +626,7 @@ public class DairyServiceImpl implements DairyService{
 		topic_id_set.add(0);
 		List<Record> record_list = recordRepositorySelect.show_all(topic_id_set);
 		if(record_list != null){
-			if(record_list.size() >= 1){
-				System.out.println(record_list.toString());				
+			if(record_list.size() >= 1){			
 				record_list.remove(record_list.size()-1);
 				jsonObject.setCode(1);
 				jsonObject.setObject(record_list);
@@ -706,7 +726,6 @@ public class DairyServiceImpl implements DairyService{
 			List<Record> record_list = recordRepositorySelect.find_topic(id,topic_id);
 			if(record_list.size() != 0 ){
 				List<Record> record_list_ = recordRepositorySelect.show_topic(topic_id);
-				System.out.println(record_list_.toString());
 				if(record_list_.size() != 0){
 					jsonObject.setCode(1);
 					jsonObject.setObject(record_list_);
@@ -762,10 +781,13 @@ public class DairyServiceImpl implements DairyService{
 		List<Future_daily> future_daily_list = future_daily_RepositorySelect.find_all();
 		List<Future_voice> future_voice_list = future_voice_RepositorySelect.find_all();
 		
-		//记录所要发送的user的邮箱,若没有则在用户登录进来的时候做一个提醒的功能
-		//记录处理了的user的主键
-		Set<String> user_id_list = new HashSet<String>();
+		
 		String now_date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		
+		//记录解锁的Future_dairy和Future_voice
+		Map<String,List<Future_daily>> map_future_daily = new HashMap<String,List<Future_daily>>();
+		Map<String,List<Future_voice>> map_future_voice = new HashMap<String,List<Future_voice>>();
+		
 		if(future_daily_list.size() != 0){
 			for(Future_daily future_daily : future_daily_list){
 				String future_daily_endTime = new SimpleDateFormat("yyyy-MM-dd").format(future_daily.getEndTime());
@@ -773,7 +795,16 @@ public class DairyServiceImpl implements DairyService{
 					//设置Isopen为true
 					future_daily.isOpen = true;
 					future_daily_Repository.save(future_daily);
-					user_id_list.add(future_daily.getUser_id());
+					
+					if( (map_future_daily.get(future_daily.getUser_id()) == null) || (map_future_daily.get(future_daily.getUser_id()).size() == 0) ){
+						List<Future_daily> future_daily_list1 = new ArrayList<Future_daily>();
+						future_daily_list1.add(future_daily);
+						map_future_daily.put(future_daily.getUser_id(), future_daily_list1);
+					}else{
+						List<Future_daily> future_daily_list1 = map_future_daily.get(future_daily.getUser_id());
+						future_daily_list1.add(future_daily);
+						map_future_daily.put(future_daily.getUser_id(), future_daily_list1);
+					}
 				}
 			}
 		}
@@ -784,35 +815,103 @@ public class DairyServiceImpl implements DairyService{
 				if(now_date.equals(future_voice_endTime)){
 					future_voice.isOpen = true;
 					future_voice_Repository.save(future_voice);
-					user_id_list.add(future_voice.getUser_id());
-				}
-			}
-		}
-		
-		/*
-		 * 通过邮箱发送：
-		 * 	1.查出用户可读的future_daily和future_voice
-		 */
-		if(user_id_list.size() != 0){
-			for(String user_id : user_id_list){
-				User user = userRepository.findOne(user_id);
-				if(user.getEmail() != null){
-					Connection conn = new Connection("39.108.236.62");
-					try {
-						conn.connect();
-						conn.authenticateWithPassword("root","jiezi,./15");
-						Session session;
-						session = conn.openSession();
-						session.execCommand("/usr/dairy/sendmail/remind_mail.sh " + user.getEmail());
-						session.waitForCondition(ChannelCondition.EXIT_STATUS, 5000);
-					} catch (IOException e) {
-						e.printStackTrace();
-					} finally{
-						conn.close();
+					if( (map_future_voice.get(future_voice.getUser_id()) == null) || (map_future_voice.get(future_voice.getUser_id()).size() == 0) ){
+						List<Future_voice> future_voice_list1 = new ArrayList<Future_voice>();
+						future_voice_list1.add(future_voice);
+						map_future_voice.put(future_voice.getUser_id(), future_voice_list1);
+					}else{
+						List<Future_voice> future_voice_list1 = map_future_voice.get(future_voice.getUser_id());
+						future_voice_list1.add(future_voice);
+						map_future_voice.put(future_voice.getUser_id(), future_voice_list1);
 					}
 				}
 			}
 		}
+		//future_daily整合发送消息
+		if(map_future_daily.size() != 0){
+			Set<String> future_set = map_future_daily.keySet();
+			
+			for(String user_id : future_set){
+				User user = userRepository.findOne(user_id);
+				String article = "";	
+				if(user.getEmail() != null || !(user.getEmail().equals(""))){				
+					List<Future_daily> future_daily_list2 = map_future_daily.get(user_id);
+					for (int i = 0; i < future_daily_list2.size(); i++) {
+						if(i == future_daily_list2.size() - 1){
+							article = article + future_daily_list2.get(i).getArticle();
+						}else{
+							article = article + future_daily_list2.get(i).getArticle() + "、";
+						}
+					}					
+				}
+				//为warn数据库插入数据 warnRepository
+				Warn warn = new Warn();
+				warn.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+				warn.setArticle("未来日常日记解锁通知");
+				warn.setContext("您的未来日常日记:" + article + " 成功解锁");
+				warn.setUser_id(user_id);
+				warn.setWarnTime(new Date());
+				warnRepository.save(warn);
+				//开始发送消息				
+				Connection conn = new Connection("39.108.236.62");
+				try {
+					conn.connect();
+					conn.authenticateWithPassword("root","jiezi,./15");
+					Session session;
+					session = conn.openSession();
+					session.execCommand("/usr/dairy/sendmail/remind_mail.sh " + user.getEmail() + " " + article);
+					session.waitForCondition(ChannelCondition.EXIT_STATUS, 5000);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally{
+					conn.close();
+				}
+				
+			}			
+		}
+		
+		//future_voice整合发送消息
+		if(map_future_voice.size() != 0){
+			Set<String> future_set = map_future_voice.keySet();
+			for(String user_id : future_set){
+				User user = userRepository.findOne(user_id);
+				String article = "";	
+				if(user.getEmail() != null || !(user.getEmail().equals(""))){
+					List<Future_voice> future_voice_list2 = map_future_voice.get(user_id);
+					for (int i = 0; i < future_voice_list2.size(); i++) {
+						if(i == future_voice_list2.size() - 1){
+							article = article + future_voice_list2.get(i).getArticle();
+						}else{
+							article = article + future_voice_list2.get(i).getArticle() + "、";
+						}
+					}
+				}
+				//为warn数据库插入数据 warnRepository
+				Warn warn = new Warn();
+				warn.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+				warn.setArticle("未来回声日记解锁通知");
+				warn.setContext("您的未来回声日记:" + article + " 成功解锁");
+				warn.setUser_id(user_id);
+				warn.setWarnTime(new Date());
+				warnRepository.save(warn);
+				//开始发送消息				
+				Connection conn = new Connection("39.108.236.62");
+				try {
+					conn.connect();
+					conn.authenticateWithPassword("root","jiezi,./15");
+					Session session;
+					session = conn.openSession();
+					session.execCommand("/usr/dairy/sendmail/remind_mail.sh " + user.getEmail() + " " + article);
+					session.waitForCondition(ChannelCondition.EXIT_STATUS, 5000);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally{
+					conn.close();
+				}
+			}
+		}
+		
+		
 	}
 
 	@Override
@@ -931,7 +1030,6 @@ public class DairyServiceImpl implements DairyService{
 		if(!daily.isPermission()){
 			try {
 				dairyServiceDelete.delete_daily(id);
-				System.out.println("我是非公开");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				return false;
@@ -940,7 +1038,6 @@ public class DairyServiceImpl implements DairyService{
 			try {
 				dairyServiceDelete.delete_daily(id);
 				dairyServiceDelete.delete_record(id);
-				System.out.println("我是公开");
 			} catch (Exception e) {
 				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 				return false;
@@ -1036,7 +1133,6 @@ public class DairyServiceImpl implements DairyService{
 				//已经收藏了，因此再次点击是取消收藏
 				Collect collect2 = collectRepositorySelect.findByidAnduserid(id, user_id);
 				collectRepository.delete(collect2);
-				System.out.println("daily 取消收藏");
 				return collect2;
 			}
 			
@@ -1073,7 +1169,6 @@ public class DairyServiceImpl implements DairyService{
 				//已经收藏了，因此再次点击是取消收藏
 				Collect collect2 = collectRepositorySelect.findByidAnduserid(id, user_id);
 				collectRepository.delete(collect2);
-				System.out.println("daily 取消收藏");
 				return collect2;
 			}
 		}
@@ -1128,4 +1223,118 @@ public class DairyServiceImpl implements DairyService{
 		return -1;
 	}
 
+	/**
+	 * 展示公告
+	 */
+	@Override
+	public List<Announcement> show_announcement() {
+		List<Announcement> announcement_list = new ArrayList<Announcement>();
+		Sort sort=new Sort(Sort.DEFAULT_DIRECTION.DESC,"updateTime");
+		Iterator<Announcement> iterator_announcement = announcementPagingAndSortingRepository.findAll(sort).iterator();
+		while(iterator_announcement.hasNext()){
+			Announcement announcement = iterator_announcement.next();
+			announcement_list.add(announcement);
+		}
+		if(announcement_list.size() > 4){
+			List<Announcement> new_announcement_list = new ArrayList<Announcement>();
+			for (int i = 0; i < 4; i++) {
+				new_announcement_list.add(announcement_list.get(i));
+			}
+			return new_announcement_list;
+		}else{
+			return announcement_list;
+		}
+	}
+
+	
+	/**
+	 * 公告发布
+	 */
+	public void sendAnnouncement(){
+		//simpMessagingTemplate.convertAndSend("/push/dairy" + id, daily_);
+		Announcement announcement = announcementRepository.findOne("0d62db4787e94d4f85eb92467099a93a");
+		System.out.println(announcement.getId());
+		List<User> user_list = userRepositorySelect.finAll();
+		for(User user : user_list){
+			simpMessagingTemplate.convertAndSend("/push/dairy" + user.getId(),announcement);
+		}
+	}
+
+	/**
+	 * 用户阅读公告
+	 */
+	@Override
+	public Announcement announcement_read(String id) {
+		return announcementRepository.findOne(id);
+	}
+
+	/**
+	 * 用户修改个人信息
+	 */
+	@Override
+	public User user_update_info(User user1) {
+		User user = userRepository.findOne(user1.getId());
+		if(user != null){
+			//email
+			if(user1.getEmail() == null || user1.getEmail().equals("")){
+				user.setEmail(null);
+			}else{
+				user.setEmail(user1.getEmail());
+			}
+			//username
+			user.setUsername(user1.getUsername());
+			//password
+			user.setPassword(user1.getPassword());
+			return userRepository.save(user);			
+		}
+		return null;
+	}
+
+	/**
+	 * 查出用户对应的警告信息
+	 */
+	@Override
+	public List<Warn> dairy_remind(User user) {
+		//根据警告信息的user_id查找用户对应的警告信息
+		return warnRepositorySelect.findAllByuser_id(user.getId());
+	}
+
+	/**
+	 * 非邮件提醒将未读变为可读
+	 */
+	@Override
+	public boolean can_read(String id) {
+		Warn warn = warnRepository.findOne(id);
+		if(!warn.isIsread()){
+			warn.setIsread(true);
+			Warn warn1 = warnRepository.save(warn);
+			if(warn1.isIsread()){
+				return true;
+			}else {
+				warn1.setIsread(false);
+				warnRepository.save(warn1);
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * 查看是否存在有未读的非邮件，若有图标则显示【1】，否则不显示【0】
+	 */
+	@Override
+	public boolean isremind(String id) {
+		User user = userRepository.findOne(id);
+		List<Warn> warn_list = user.getWarn_list();
+		boolean flag = false;
+		if(warn_list.size() !=0){
+			for(Warn warn : warn_list){
+				if(!warn.isIsread()){
+					flag = true;
+				}
+			}
+		}
+		return flag;
+	}
+	
 }

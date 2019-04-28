@@ -31,8 +31,8 @@
 	<link rel="stylesheet" href="/dairy/daily_myself_context/css/style.css">
 	<script src="/dairy/daily_myself_context/js/modernizr-2.6.2.min.js"></script>
 </head>
-
     <body>
+    <div style="display:none" th:text="${session.user.id}" id="user_id1"></div>
        <!-- 轮播 -->
         <div class="tm-header">
             <div class="container-fluid">
@@ -49,16 +49,16 @@
                         <div class="collapse navbar-toggleable-sm" id="tmNavbar">
                             <ul class="nav navbar-nav">
                                 <li class="nav-item">
-                                    <a href="/dairy/dairy_home" class="nav-link" style="font-size:20px">Home</a>
+                                    <a href="/dairy/dairy_home" class="nav-link" style="font-size:20px">主页</a>
                                 </li>
                                 <li class="nav-item active">
-                                    <a href="/dairy/dairy_myself" class="nav-link" style="font-size:20px">Myself</a>
+                                    <a href="/dairy/dairy_myself" class="nav-link" style="font-size:20px">日记</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="blog.html" class="nav-link" style="font-size:20px">Set</a>
+                                    <a href="/dairy/dairy_set" class="nav-link" style="font-size:20px">设置</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="contact.html" class="nav-link" style="font-size:20px">Contact</a>
+                                    <a href="/dairy/dairy_remind" class="nav-link" style="font-size:20px">提醒<span class="layui-badge-dot" style="top:-3px"></span></a>
                                 </li>
                             </ul>                        
                         </div>
@@ -117,11 +117,11 @@
 			<h1 id="fh5co-logo"><a href="#">Myself</a></h1>
 			<nav id="fh5co-main-menu" role="navigation">
 				<ul>
-					<li class="fh5co-active"><a href="#">Daily</a></li>
-					<li><a href="/dairy/dairy_myself_voice">Voice</a></li>
-					<li><a href="/dairy/dairy_myself_future_daily">Future Daily</a></li>
-					<li><a href="/dairy/dairy_myself_future_voice">Future Voice</a></li>
-					<li><a href="/dairy/dairy_myself_collect">Collect</a></li>
+					<li class="fh5co-active"><a href="#">日常日记</a></li>
+					<li><a href="/dairy/dairy_myself_voice">回声日记</a></li>
+					<li><a href="/dairy/dairy_myself_future_daily">未来日常日记</a></li>
+					<li><a href="/dairy/dairy_myself_future_voice">未来回声日记</a></li>
+					<li><a href="/dairy/dairy_myself_collect">收藏</a></li>
 				</ul>
 			</nav>
 

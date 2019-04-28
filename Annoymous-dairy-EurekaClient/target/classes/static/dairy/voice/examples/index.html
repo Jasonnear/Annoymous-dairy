@@ -70,6 +70,7 @@
         Recorder.stop();
       }
       <!-- 上传 -->
+      var permission;
       function upload(){
     	  Recorder.upload({
       	    method: "POST",
@@ -95,10 +96,10 @@
       	    
       	    },
       	  });
+    	  
       }
-     
+      
       function save() {
-          var permission;
           //ON:公开
           if($(".layui-input-block").find('em').html() == 'ON'){
           	permission = true;
@@ -187,7 +188,7 @@
 		</i>
 		<!-- 内容 -->
 		<div id="wrapper" style="width:100%">
-	      <h1 style="margin-top:80px;margin-bottom:50px;font-size:80px">Voice Dairy</h1>
+	      <h1 style="margin-top:80px;margin-bottom:50px;font-size:80px">回声日记</h1>
 	    </div>
 		<section class="tm-section" style="padding-bottom: 0px;">
             <div class="container-fluid" style="max-width: 700px;">

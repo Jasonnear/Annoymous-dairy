@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Classic - Responsive Bootstrap 4.0 Template</title>
+    <title>Daily Home</title>
 	<!-- jquery -->
 	<script src="/dairy/js/jquery-1.8.0.min.js"></script>
     <!-- load stylesheets -->
@@ -47,6 +47,7 @@
 	
     <!-- dairy_home -->
     <script src="/dairy/js/dairy_home.js"></script>
+    
     <link rel="stylesheet" href="/dairy/daily_home_context/css/style.css">
     <link rel="stylesheet" href="/dairy/daily_home_context/css/responsive.css">
     <link rel="stylesheet" href="/dairy/daily_home_context/css/color.css">
@@ -74,16 +75,16 @@
                         <div class="collapse navbar-toggleable-sm" id="tmNavbar">
                             <ul class="nav navbar-nav">
                                 <li class="nav-item active">
-                                    <a href="/dairy/dairy_home" class="nav-link" style="font-size:20px">Home</a>
+                                    <a href="/dairy/dairy_home" class="nav-link" style="font-size:20px">主页</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/dairy/dairy_myself" class="nav-link" style="font-size:20px">Myself</a>
+                                    <a href="/dairy/dairy_myself" class="nav-link" style="font-size:20px">日记</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="blog.html" class="nav-link" style="font-size:20px">Set</a>
+                                    <a href="/dairy/dairy_set" class="nav-link" style="font-size:20px">设置</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="contact.html" class="nav-link" style="font-size:20px">Contact</a>
+                                    <a href="/dairy/dairy_remind" class="nav-link" style="font-size:20px">提醒<span class="layui-badge-dot" style="top:-3px"></span></a>                                  
                                 </li>
                             </ul>                        
                         </div>
@@ -228,8 +229,35 @@
 				</div>	
 			</div> <!-- /.row -->
 		</div> <!-- /.container -->
-		<!--  /////////////////////////////////////////////////////////////// -->
-			
+		
+		
+		<!--  公告 -->
+		<!-- ======================== Theme Sidebar =============================== -->
+			<div class="col-lg-4 col-md-7 col-12 theme-main-sidebar" style="position:absolute;left:1350px;top:648px;">							
+				<div class="sidebar-box bg-box sidebar-trending-post">
+					<h2>公告</h2>
+					<div th:each="announcement:${session.announcement_list}" th:if="${session.announcement_list != null}" class="div1">
+						<span class="announcement_id" th:text="${announcement.id}" style="display:none"></span>					
+						<ul class="layui-timeline" style="padding-top:25px">				
+						  <li class="layui-timeline-item">
+						    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+						    <div class="layui-timeline-content layui-text">
+						      <h3 class="layui-timeline-title date" th:text="${announcement.updateTime}"></h3>
+						      <p>
+						        <div class="single-trending-post clearfix">
+									<div class="post float-left" style="padding-top:25px">
+										<h6><a href="#" style="font-size:20px" th:utext="${announcement.article}" class="announcement_article"></a></h6>								
+									</div>
+								</div>
+						      </p>
+						    </div>
+						  </li>					  
+						</ul>
+					</div>
+															
+				</div>										
+			</div>
+		<!-- ///////////////////////////////////////////////////////////////// -->
 		<script>
 		layui.use('element', function(){
 		  var element = layui.element;
@@ -250,7 +278,7 @@
 		  });
 		});
 		</script>
-		<script  src="/dairy/js/chat_index.js"></script>
+		<!-- <script  src="/dairy/js/chat_index.js"></script>-->
 		
 		<!-- comment -->
 		<script type="text/javascript" src="/dairy/comment/js/jquery-1.12.0.min.js"></script>
@@ -327,7 +355,15 @@
 		            $(this).parent().find('.comment-input').val("");
 		        }
 		    });
-		</script>				
+		</script>
+		
+		<script>
+			$(".announcement_article").on('click',function(){
+				var here = $(this).parents('.div1').find('.announcement_id').html();
+				window.location.href = "/dairy/announcement_read?id=" + here;
+			})
+		</script>
+						
 			 
 </body>
 </html>
