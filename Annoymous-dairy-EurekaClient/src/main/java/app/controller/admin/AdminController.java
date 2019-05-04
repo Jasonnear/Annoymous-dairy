@@ -277,6 +277,8 @@ public class AdminController {
 		if(user != null){
 			Map<String,Object> map = adminService.announcement_list();
 			session.setAttribute("admin_announcement_list", map);
+		}else{
+			session.setAttribute("admin_announcement_list", null);
 		}
 		return "admin/announcement-list";	
 	}

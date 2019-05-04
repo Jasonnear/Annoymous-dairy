@@ -7,6 +7,9 @@ spring:
     url: jdbc:mysql://39.108.236.62:3306/annoymous-dairy
     username: root
     password: jiezi,./15
+    data:
+    - classpath:import.sql
+    separator: $$$
 #jpa
   jpa:
     database: mysql

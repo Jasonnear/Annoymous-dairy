@@ -69,4 +69,5 @@ public interface UserRepositorySelect extends Repository<User, String>{
 	 */
 	@Query(value = "from User where cora = 0")
 	public List<User> finAll();
+
 }

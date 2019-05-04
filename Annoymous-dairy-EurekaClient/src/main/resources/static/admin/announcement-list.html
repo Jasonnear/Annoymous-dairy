@@ -30,10 +30,7 @@
     </div>
     <div class="x-body">
       <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">  
-          <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
-          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-        </form>
+        
       </div>
       <!-- <button class="layui-btn layui-btn-danger"><i class="layui-icon"></i>扫描</button> -->
       <table class="layui-table">
@@ -43,24 +40,24 @@
             <th>公告标题</th>
             <th>发布时间</th>
             <th>操作</th>
+          </tr>
         </thead>
         <tbody>
-          <tr th:each="announcement,announcementStat:${session.admin_announcement_list['announcement_list']}" th:if="${session.admin_announcement_list != null}" class="tr1">
+          <tr th:if="${session.admin_announcement_list['announcement_list'] != null}" th:each="announcement,announcementStat:${session.admin_announcement_list['announcement_list']}"  class="tr1">
+          
             <td class="announcement_id" style="display:none" th:text="${announcement.id}"></td>  
  			<td class="user_id" style="display:none" th:text="${announcement.user_id}"></td>                  
-            <td th:text="${session.admin_announcement_list['user_announcement_list'][announcementStat.index].username}"></td>
+            <td th:text="${session.admin_announcement_list['user_announcement_list'][announcementStat.index].username}" th:if="${session.admin_announcement_list != null}"></td>
             <td th:text="${announcement.article}"></td>
             <td th:text="${announcement.createTime}"></td>
             <td class="td-manage">
-              <a title="阅读"  class="read" href="javascript:;">
-              <!--<a title="阅读"  onclick="read('this','要阅读日记的id')" href="javascript:;">-->              
+              <a title="阅读"  class="read" href="javascript:;">        
                 <i class="layui-icon">&#xe642;</i>
               </a>
               <a title="删除" class="del" href="javascript:;">
-              <!-- <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;"> -->
                 <i class="layui-icon">&#xe640;</i>
               </a>            
-            </td>
+            </td>           
           </tr>
         </tbody>
       </table>
