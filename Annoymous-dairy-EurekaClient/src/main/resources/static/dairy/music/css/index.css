@@ -1,0 +1,300 @@
+/*轮播图*/
+.show {
+    width: 780px;
+    height: 500px;
+    float: left;
+    margin-top: 10px;
+    border-radius: 5px;
+    position: relative;
+    margin-left: 32px;
+    overflow: hidden;
+    box-shadow:8px 8px 10px #9a9a9a;
+
+}
+.show .showbox {
+    width: 780px;
+    height: 500px;
+    position: relative;
+}
+.show .showbox ul {
+    width: 600%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.show .showbox ul li {
+    float: left;
+}
+.show ol {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+.show ol li {
+    color: white;
+    float: left;
+    width: 20px;
+    height: 20px;
+    background: darkgray;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 50%;
+    margin-left:10px ;
+    cursor: pointer;
+}
+.current {
+    background: #666666;
+}
+.size {
+    width:815px;
+}
+
+
+/*播放器*/
+.player {
+    width: 280px;
+    height: 380px;
+    margin-right: 20px;
+    margin-top: 15px;
+    float: right;
+    border-radius: 5px;
+    background-color: #A9A9A9;
+    background: url("../image/player2.JPG") no-repeat;
+    box-shadow:8px 8px 10px #9a9a9a;
+}
+.player .player_image {
+    width: 170px;
+    height: 170px;
+    margin: 23px auto;
+    border-radius: 150px;
+    overflow: hidden;
+}
+.player .player_music {
+    width: 250px;
+    margin: 0 auto;
+}
+.player .player_music .player_audio {
+    width: 250px;
+    height: 30px;
+    border-radius: 5px;
+}
+.player .player_content {
+    width: 250px;
+    margin: 0 auto;
+    text-align: left;
+    margin-left: 35px;
+}
+.player .player_content ul li {
+    width: 180px;
+    margin: 0 auto;
+    margin-top: 3px;
+}
+.player .player_content ul li a {
+    color: white;
+    font-family: 微软雅黑;
+    font-size: 13px;
+}
+.player .player_content ul li a:hover {
+    color: #C81623;
+}
+.player .player_content .player_content_img {
+    width:25px;
+    margin-right:20px;
+}
+
+
+/*billbaord榜单*/
+.billboard {
+    width: 300px;
+    height: 450px;
+    float: right;
+    font-size: 30px;
+    font-family: "Microsoft YaHei";
+    margin-top: 10px;
+    background: url("../image/player2.jpg") repeat-y;
+}
+.billboard .list li {
+    height: 20px;
+    font-size: 20px;
+    line-height: 20px;
+    margin-top: 13px;
+    text-align: left;
+    padding-left: 30px;
+}
+.billboard .list li a {
+    color: darkgrey;
+}
+.billboard .list li a:hover {
+    color: white;
+    font-size: 22px;
+}
+
+
+/*热点推荐*/
+.hot {
+    float: left;
+    width: 300px;
+    height: 331px;
+    position: relative;
+    top:-70px;
+    font-size: 20px;
+    overflow: hidden;
+    background-color: white;
+}
+.title {
+    font-size: 15px;
+    padding-left: 40px;
+    padding-top: 20px;
+    font-family: 黑体;
+    font-style: inherit;
+    color: #3D3630;
+}
+.hot .name {
+    padding-left: 10px;
+    padding-top: 20px;
+}
+.hot .image {
+    width: 50%;
+    float: right;
+    padding-top: 15px;
+}
+.hot .song {
+    padding-top: 10px;
+    padding-left: 30px;
+    font-size: 15px;
+}
+.hot .introduction {
+    font-family: "Microsoft YaHei";
+    font-size: 15px;
+    padding-top: 20px;
+    padding-left:15px;
+}
+.hotmini {
+    float: left;
+    width: 520px;
+    height: 260px;
+    border-bottom: solid 1px;
+    overflow: hidden;
+}
+.hotmini .container {
+    width: 160px;
+    height:100px;
+    float: left;
+    margin-left: 10px;
+}
+.hotmini .imagemini {
+    width: 100%;
+    padding-left: 5px;
+    margin-top: 10px;
+    border:0;	vertical-align:middle;/*  去掉图片底侧默认的3像素空白缝隙*/
+}
+.hotmini .namemini {
+    padding-top: 15px;
+    padding-left: 20px;
+}
+.hotmini .songmini {
+    padding-left: 20px;
+}
+
+
+/*内容区域*/
+.content {
+    margin-top: -51px;
+    float: left;
+    width: 820px;
+    height: 520px;
+    background-color: gainsboro;
+}
+.country {
+    height: 20px;
+    margin-left: 23px;
+}
+.country ul li {
+    float: left;
+    margin-top: 5px;
+    font-family: "Microsoft YaHei";
+    width: 60px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+}
+.country ul li:hover {
+    background-color: #EFEFEF;
+    color: #C81623;
+}
+.content .allsinger {
+    margin-top: 7px;
+    width: 820px;
+    height: 505px;
+    background-color: #F0F0F0;
+}
+.content .allsinger .singer {
+    width: 200px;
+    height:200px;
+    margin-left: 5px;
+    margin-top: 20px;
+    background-color: #F0F0F0;
+    float: left;
+}
+.content .allsinger .singer .singersize {
+    width: 70%;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+.content .allsinger .singer .singername {
+    text-align: center;
+    margin-top: 10px;
+    font-family: 微软雅黑;
+}
+.content .allsinger .more {
+    float: right;
+    margin-top: 40px;
+    margin-right: 30px;
+    font-family: "Microsoft YaHei";
+}
+
+.content .allsinger .fenlei {
+    display: none;
+}
+.content .country ul .moren {
+    background-color: #EFEFEF;
+}
+
+
+/*电台*/
+.allradio {
+    margin-top: 5px;
+    width: 300px;
+    height: 500px;
+    float: right;
+    background-color: #3D3630;
+}
+.allradio .title {
+    color: white;
+    font-size: 15px;
+}
+.allradio .radio {
+    width: 300px;
+    height: 450px;
+}
+.allradio .radio .radiodetailed {
+    width:140px;
+    height: 150px;
+    float: left;
+}
+.allradio .radio .radiodetailed .radiosize {
+    width:70%;
+    margin-left: 30px;
+    margin-top: 15px;
+}
+.allradio .radio .radiodetailed .radioname {
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-family: "Microsoft YaHei";
+}
+.allradio .radio .radiodetailed .radioname a {
+    color: #F0F0F0;
+}

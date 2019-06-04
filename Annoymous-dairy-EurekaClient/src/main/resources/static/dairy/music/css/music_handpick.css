@@ -1,0 +1,203 @@
+.m1 {
+    background-color: #F0F0F0;
+}
+.jx_title {
+    height: 100px;
+    color: white;
+    font-size: 30px;
+    font-family: 微软雅黑;
+    line-height: 100px;
+    padding-left: 20px;
+    margin-bottom: -20px;
+    background:url("../image/bg3.jpg") repeat-x;
+    background-size:40%;
+}
+/*今日主打*/
+.jx_content {
+    height: 260px;
+    margin-top: 100px;
+}
+.jz {
+    width: 890px;
+    margin: 0 auto;
+}
+.hot {
+    float: left;
+    width: 300px;
+    height: 331px;
+    position: relative;
+    top:-70px;
+    font-size: 20px;
+    overflow: hidden;
+}
+.title {
+    font-size: 15px;
+    padding-left: 40px;
+    padding-top: 20px;
+    font-family: 黑体;
+    font-style: inherit;
+    color: #3D3630;
+}
+.hot .name {
+    padding-left: 10px;
+    padding-top: 20px;
+}
+.hot .image {
+    width: 50%;
+    float: right;
+    padding-top: 15px;
+}
+.hot .song {
+    padding-top: 10px;
+    padding-left: 30px;
+    font-size: 15px;
+}
+.hot .introduction {
+    font-family: "Microsoft YaHei";
+    font-size: 15px;
+    padding-top: 20px;
+    padding-left:15px;
+}
+.hotmini {
+    float: left;
+    width: 550px;
+    height: 260px;
+    border-bottom: solid 1px;
+    overflow: hidden;
+    margin-left: 5px;
+}
+.hotmini .container {
+    width: 160px;
+    height:100px;
+    float: left;
+    margin-left: 15px;
+}
+.hotmini .imagemini {
+    width: 100%;
+    padding-left: 5px;
+    margin-top: 10px;
+    border:0;	vertical-align:middle;/*  去掉图片底侧默认的3像素空白缝隙*/
+    box-shadow:8px 8px 13px #9a9a9a;
+}
+.hotmini .namemini {
+    padding-top: 15px;
+    padding-left: 20px;
+}
+.hotmini .songmini {
+    padding-left: 20px;
+}
+
+/*新歌速递*/
+.gq_imagecontainer {
+    width: 230px;
+    height: 230px;
+}
+.gq_image {
+    width: 100%;
+    margin-left: 20px;
+    box-shadow:8px 8px 10px #9a9a9a;
+    border-radius: 10px;
+}
+.gq_title {
+    font-size: 15px;
+    padding-left: 40px;
+    font-family: 黑体;
+    font-style: inherit;
+    color: #3D3630;
+    margin-bottom: 10px;
+}
+.gq_song {
+    width: 220px;
+    margin: 0 auto;
+    padding-top: 15px;
+    padding-left: 25px;
+}
+.gq_song a:hover {
+    font-size: 21px;
+}
+.gq_name {
+    width: 200px;
+    margin: 0 auto;
+    padding-left: 60px;
+    padding-top: 10px;
+    font-size: 13px;
+}
+.hm1 {
+    height: 300px;
+    margin-top: -40px;
+}
+.c1 {
+    margin-top: 40px;
+}
+.c2 {
+    margin-top: 20px;
+}
+.gq_container {
+    height: 160px;
+    width: 160px;
+    margin-bottom: 15px;
+}
+.gq_songmini {
+    width: 100px;
+    height: 20px;
+    margin: 0 auto;
+    padding-top: 25px;
+    font-size: 15px;
+    line-height: 20px;
+}
+.gq_songmini a:hover {
+    font-size: 18px;
+}
+.gq_namemini {
+    width: 120px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+/*今日歌手*/
+.gs_title {
+    font-size: 15px;
+    padding-left: 40px;
+    font-family: 黑体;
+    font-style: inherit;
+    color: #3D3630;
+    margin-bottom: 10px;
+}
+.suojin {
+    text-indent:2em;
+}
+.image_container1 {
+    width: 200px;
+    height: 210px;
+}
+.gs_image {
+    width: 100%;
+    margin-left: 55px;
+    box-shadow:8px 8px 13px #9a9a9a;
+    border-radius: 15px;
+}
+.n1 {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.hot1 {
+    height: 480px;
+    margin-top: 20px;
+}
+.hotmini1 {
+    height: 460px;
+    margin-top: -15px;
+}
+.image_container {
+    width: 160px;
+    height: 160px;
+    margin-bottom: 10px;
+}
+.imagemini1 {
+    border-radius: 20px;
+}
+.introduction1 {
+    font-family: 微软雅黑;
+    font-size: 12px;
+    margin-left: 5px;
+    margin-top: 5px;
+}

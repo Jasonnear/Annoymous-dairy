@@ -45,7 +45,7 @@ $(function(){
 					async:true,
 					success:function(data)
 					{
-						$("#username_notice").html("用户名已经存在");
+						$("#username_notice").html("用户名可注册");
 					}
 				});
 			}else{

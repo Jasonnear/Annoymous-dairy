@@ -1,0 +1,120 @@
+/*导航条*/
+.header {
+    width: 120px;
+    height: 1360px;
+    background-color: #3D3630;
+    float: left;
+    position: fixed;
+    margin-right:120px;
+    z-index: 10000;
+}
+.logo {
+    height: 160px;
+    background-color: #000;
+}
+.logo .logosize {
+    width: 70%;
+    padding-left: 15px;
+    padding-top: 25px;
+}
+.logo .music {
+    padding-left: 20px;
+    padding-top: 5px;
+}
+.choose {
+    position: relative;
+}
+.choose .user {
+    margin-top: 40px;
+}
+.choose .user a {
+    font-size: 16px;
+}
+.choose .search {
+    margin-top: 30px;
+    font-size: 15px;
+    position: relative;
+}
+.choose .drop2 {
+    position: absolute;
+    left: 120px;
+    top: 0;
+    display: none;
+    width: 300px;
+    height: 40px;
+    background-color: #796D5F;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 6px;
+}
+.choose .search:hover .drop2 {
+    display: block;
+}
+.choose .drop2 .drop2_input {
+    height: 30px;
+    width: 210px;
+    border-radius: 5px;
+    line-height: 30px;
+    font-size: 14px;
+    font-family: 微软雅黑;
+    margin-top: -38px;
+}
+.choose .search .drop2 .drop2_input_btn {
+    background: url("../image/search.svg") no-repeat;
+    width: 35px;
+    height: 40px;
+    cursor: pointer;
+}
+.choose a {
+    width: 120px;
+    height:45px;
+    font-size: 18px;
+    font-family: 微软雅黑;
+    text-align: center;
+    line-height: 46px;
+    display: block;
+}
+.choose a:hover{
+    color:white;
+    background-color: #796D5F;
+}
+.choose .ccc:hover {
+    background-color: #796D5F;
+}
+.choose .drop1 {
+    position: absolute;
+    top: -160px;
+    left: 120px;
+    display: none;
+    width: 240px;
+    height: 1360px;
+    background-color: #796D5F;
+}
+.choose .drop1 .music_topic {
+    width: 100%;
+    height: 160px;
+    background-color: #675D53;
+    color: white;
+    font-size: 34px;
+    text-align: center;
+    line-height: 160px;
+    font-family: 微软雅黑;
+    font-style: inherit;
+    margin-bottom: 40px;
+}
+.choose .drop1 a {
+    color: rgba(167, 154, 138, 0.81);
+    font-size: 14px;
+    font-family: 微软雅黑;
+    text-align: center;
+    margin: 0 auto;
+    text-decoration: none;
+    display: block;
+}
+.choose .drop1 a:hover {
+    color: white;
+    font-size: 16px;
+}
+.choose .a1:hover .drop1 {
+    display: block;
+}

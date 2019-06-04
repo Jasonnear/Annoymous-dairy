@@ -1,0 +1,83 @@
+.bg {
+    background: url("../image/bg3.jpg");
+}
+/*排行榜分类标题*/
+.ph_title {
+    height: 100px;
+    color: white;
+    font-size: 30px;
+    font-family: 微软雅黑;
+    line-height: 100px;
+    padding-left: 20px;
+    background:url("../image/bg10.jpg") repeat-x;
+    background-size:40%;
+}
+.ph_content {
+    width: 800px;
+    margin: 0 auto;
+    background-color: #a79d93;
+}
+/*排行榜标题*/
+.ph_name {
+    height: 50px;
+    background-color: black;
+    color: white;
+}
+.ph_name .jz {
+    width: 200px;
+    margin: 0 auto;
+}
+.ph_name .pic {
+    width: 50px;
+    float: left;
+}
+.ph_name .pic img {
+    width: 100%;
+}
+.ph_name .til {
+    float: left;
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
+}
+/*具体排行*/
+
+.frist {
+    width: 800px;
+    height: 100px;
+    background-color: rgb(147, 134, 118);
+    margin-top: 20px;
+}
+.frist_rank {
+    float: left;
+    width: 100px;
+    height: 100px;
+    color: white;
+    line-height: 100px;
+    font-size: 40px;
+    text-align: center;
+    background-color: #675D53;
+}
+.frist_img {
+    float: left;
+    width: 100px;
+    height: 100px;
+}
+.frist_img img {
+    width: 100%;
+}
+.frist_information {
+    float: left;
+    width: 500px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 22px;
+    font-family: 微软雅黑;
+    margin-left: 80px;
+}
+.frist_information a {
+    color: #d2d2d2;
+}
+.frist_information a:hover {
+    color: white;
+}

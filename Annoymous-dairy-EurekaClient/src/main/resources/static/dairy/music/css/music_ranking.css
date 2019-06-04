@@ -1,0 +1,87 @@
+.bg {
+    height: 1250px;
+    background: url("../image/bg3.jpg");
+}
+.ph_title {
+    height: 100px;
+    color: white;
+    font-size: 30px;
+    font-family: 微软雅黑;
+    line-height: 100px;
+    padding-left: 20px;
+    background:url("../image/bg10.jpg") repeat-x;
+    background-size:40%;
+}
+.ph_detail {
+    float: left;
+    width: 320px;
+    height: 540px;
+    margin-top: 50px;
+    margin-left: 45px;
+    background:url("../image/bg3.JPG");
+    border-radius: 15px;
+    box-shadow:10px 10px 15px #bdbdbd;
+}
+.bb_image {
+    width: 110px;
+    float: left;
+}
+.bb_image img {
+    width: 100%;
+}
+.bb_title {
+    width: 190px;
+    height: 110px;
+    color: white;
+    font-size: 25px;
+    font-family: 微软雅黑;
+    line-height: 110px;
+    float: left;
+    margin-left: 20px;
+}
+.bb_content {
+    width: 150px;
+    height: 375px;
+    margin-top: 20px;
+    float: left;
+    overflow: hidden;
+}
+.bb_content ul li {
+    height: 20px;
+    width: 150px;
+    color: gainsboro;
+    font-size: 16px;
+    font-family: 微软雅黑;
+    line-height: 20px;
+    margin-top: 13px;
+    text-align: left;
+    margin-left: 20px;
+    overflow: hidden;
+    text-overflow:ellipsis
+}
+.bb_content ul li a {
+    color: #dddddd;
+}
+.bb_content ul li a:hover {
+    color: white;
+    font-size: 18px;
+}
+.bb_content ul li .n1 {
+    width: 12%;
+}
+.bb_more {
+    width: 100px;
+    height: 100px;
+    margin-top: 5px;
+    margin-right: -15px;
+    float: right;
+    font-family: 微软雅黑;
+}
+.bb_more a {
+    color: #979797;
+}
+.bb_more a:hover {
+    color: #d2d2d2;
+}
+
+

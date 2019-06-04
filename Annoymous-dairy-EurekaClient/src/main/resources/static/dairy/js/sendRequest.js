@@ -2,7 +2,10 @@ $(function(){
 	$("#item_active").click(function(){
 		window.location.href="/dairy/dairy_home";
 	})
-	$("#item").click(function(){
-		window.location.href="/music/index";
+	$("#item1").click(function(){
+		window.location.href="/dairy/music";
+	})
+	$("#item2").click(function(){
+		window.location.href="/dairy/video";
 	})
 })

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>音乐网站</title>
+    <link rel="stylesheet" href="/dairy/music/css/base.css">
+    <link rel="stylesheet" href="/dairy/music/css/index.css">
+    <link rel="stylesheet" href="/dairy/music/css/music_header.css">
+    <script src="/dairy/music/js/jquery-3.2.1.min.js"></script>
+    <!--<script data-main="js/index" src="js/Require-mini.js" defer async="true" type="text/javascript"></script>-->
+</head>
+<body>
+<!--版心(承载所有内容)-->
+<div class="z">
+
+<!--导航条-->
+    <div class="header">
+        <div class="logo">
+            <a href="/dairy/music"><img src="/dairy/music/image/logo.jpg" class="logosize"></a>
+            <div class="music">music channel</div>
+        </div>
+        <div class="choose">
+            <div class="a1">
+                <div class="ccc">
+                    <a href="/dairy/music_handpick.html">精选</a>
+                </div>
+            </div>
+            <div class="a1">
+                <div class="ccc">
+                    <a href="/dairy/music_language">语言</a>
+                    <div class="drop1">
+                    <div class="music_topic">music</div>
+                    <a href="#">中文</a>
+                    <a href="#">粤语</a>
+                    <a href="#">英语</a>
+                    <a href="#">日韩</a>
+                    </div>
+                </div>
+            </div>
+            <div class="a1">
+                <div class="ccc">
+                    <a href="/dairy/music_ranking">排行</a>
+                    <div class="drop1">
+                    <div class="music_topic">music</div>
+                    <a href="/dairy/music_ranking_detail">Billboard</a>
+                    <a href="/dairy/music_ranking_detail">UK榜</a>
+                    <a href="/dairy/music_ranking_detail">iTunes榜</a>
+                    <a href="/dairy/music_ranking_detail">香港电台榜</a>
+                    <a href="/dairy/music_ranking_detail">Mnet榜</a>
+                    <a href="/dairy/music_ranking_detail">日本公信榜</a>
+                    </div>
+                </div>
+            </div>
+            <div class="a1">
+                <div class="ccc">
+                    <a href="#">歌手</a>
+                    <div class="drop1">
+                    <div class="music_topic">music</div>
+                    <a href="#">欧美</a>
+                    <a href="#">大陆</a>
+                    <a href="#">港台</a>
+                    <a href="#">日韩</a>
+                    </div>
+                </div>
+            </div>
+            <a href="#">电台</a>
+            <div class="user"><a href="#"><img src="/dairy/music/image/user.svg" width="15%"> 个人中心 </a></div>
+            <div class="search">
+                <div class="ccc">
+                    <a href="#">搜索 <img src="/dairy/music/image/search.svg" width="15%"></a>
+                    <div class="drop2">
+                        <input type="text" class="drop2_input" value="请输入搜索内容..." style="color:#A9A9A9" onfocus='if(this.value=="请输入搜索内容..."){this.value="";};' onblur='if(this.value==""){this.value="请输入搜索内容...";};' ><button type="button" class="drop2_input_btn"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--与导航条隔开（承载除了导航条外的所有内容）-->
+    <div class="mmm">
+
+        <!--轮播图-->
+        <div id="show" class="show">
+            <div id="showbox" class="showbox">
+                <ul id="ul">
+                    <li><a href="javascript:;"><img class="size" src="/dairy/music/image/Shawn Mendes.jpg"></a></li>
+                    <li><a href="javascript:;"><img class="size" src="/dairy/music/image/Taylor Swift.jpg"></a></li>
+                    <li><a href="javascript:;"><img class="size" src="/dairy/music/image/DJ Khaled.jpg"></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!--播放器-->
+        <div class="player">
+            <div class="player_image" id="player_image">
+                <img src="/dairy/music/image/4.jpg" width="100%" id="player_image_detail" />
+            </div>
+            <div class="player_music">
+                <audio src="/dairy/music/mp3/These Days.mp3" id="audio" controls="controls" loop="loop" autoplay="autoplay" class="player_audio"></audio>
+            </div>
+            <div class="player_content">
+                <ul>
+                    <li>
+                        <img src="/dairy/music/image/icon/icon-08-musicdeep.png" class="player_content_img" />
+                        <a href="#">These Day</a>
+                    </li>
+                    <li>
+                        <img src="/dairy/music/image/icon/music_microphonedeep.png" class="player_content_img" />
+                        <a href="#">Rudimental</a>
+                    </li>
+                    <li>
+                        <img src="/dairy/music/image/icon/sheet_music.png" class="player_content_img" />
+                        <a href="#">Kesi Dryden </a>
+                    </li>
+                    <li>
+                        <img src="/dairy/music/image/icon/music-boxdeep.png" class="player_content_img" />
+                        <a href="#">John Ryan</a>
+                    </li>
+                </ul>
+                </div>
+        </div>
+
+        <!--billboard榜单-->
+        <div class="billboard">
+            <img src="/dairy/music/image/billboard.jpg" style="width: 100%">
+            <ol class="list">
+                <li><a href="#">1.God's Plan</a></li>
+                <li><a href="#">2.Meant To Be</a></li>
+                <li><a href="#">3.Finesse</a></li>
+                <li><a href="#">4.Psycho</a></li>
+                <li><a href="#">5.Perfect</a></li>
+                <li><a href="#">6.Look Alive</a></li>
+                <li><a href="#">7.The Middle</a></li>
+                <li><a href="#">8.Freaky Friday</a></li>
+                <li><a href="#">9.Sad!</a></li>
+                <li><a href="#">10.Havana</a></li>
+            </ol>
+        </div>
+
+        <!--热点推荐-->
+        <div class="hot">
+            <img src="/dairy/music/image/1.jpg" class="image">
+            <div class="title">今日主打</div>
+            <div class="name"><a href="#">Troye Sivan</a></div>
+            <div class="song"><a href="#">-The Good Side-</a></div>
+            <div class="introduction">特洛耶·希文，1995年6月5日出生于南非约翰内斯堡。在特洛耶·希文两岁时，全家便移居至澳大利亚西部珀斯。特洛耶·希文的爸爸是房地产经纪人，出生于一个犹太家庭。妈妈是全职家庭主妇，皈依了犹太教 。特洛耶·希文是作为传统的犹太人长大，曾就读於一所犹太学校。特洛耶·希文有庆祝犹太安息日。</div>
+        </div>
+        <div class="hotmini">
+            <div class="container">
+                <img src="/dairy/music/image/2.jpg" class="imagemini">
+                <div class="namemini"><a href="#">Kygo / Miguel </a></div>
+                <div class="songmini"><a href="#">-Remind Me to Forget-</a></div>
+            </div>
+            <div class="container">
+                <img src="/dairy/music/image/3.jpg" class="imagemini">
+                <div class="namemini"><a href="#">Camila Cabello / Young Thug</a></div>
+                <div class="songmini"><a href="#">-Havana-</a></div>
+            </div>
+            <div class="container">
+                <img src="/dairy/music/image/4.jpg" class="imagemini">
+                <div class="namemini"><a href="#">Rudimental / Dan Caplen / Macklemore / Jess Glynne</a></div>
+                <div class="songmini"><a href="#">-These Days-</a></div>
+            </div>
+        </div>
+
+        <!--内容区域-->
+        <div class="content">
+            <div class="title">乐人</div>
+            <div class="country" id="country">
+                <ul>
+                    <li class="moren" id="moren">欧美</li>
+                    <li>大陆</li>
+                    <li>港台</li>
+                    <li>日韩</li>
+                </ul>
+            </div>
+            <div class="allsinger" id="allsinger">
+                <div class="fenlei" style="display: block">
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/a.jpg">
+                        <div class="singername"><a href="#">The Chainsmokers</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/b.jpg">
+                        <div class="singername"><a href="#">Alan Walker</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/c.jpg">
+                        <div class="singername"><a href="#">Ed Sheeran</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/d.jpg">
+                        <div class="singername"><a href="#">Charlie Puth</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/e.jpg">
+                        <div class="singername"><a href="#">Maroon 5</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/f.jpg">
+                        <div class="singername"><a href="#">Justin Bieber</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/g.jpg">
+                        <div class="singername"><a href="#">Zedd</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/h.jpg">
+                        <div class="singername"><a href="#">Troye Sivan</a></div>
+                    </div>
+                    <div class="more">
+                        <a href="#">更多歌手 ></a>
+                    </div>
+                </div>
+
+                <div class="fenlei">
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/aa.jpg">
+                        <div class="singername"><a href="#">薛之谦</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/bb.jpg">
+                        <div class="singername"><a href="#">华晨宇</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/cc.jpg">
+                        <div class="singername"><a href="#">李荣浩</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/dd.jpg">
+                        <div class="singername"><a href="#">张靓颖</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/ee.jpg">
+                        <div class="singername"><a href="#">宋冬野</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/ff.jpg">
+                        <div class="singername"><a href="#">陈粒</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/gg.jpg">
+                        <div class="singername"><a href="#">刘惜君</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/hh.jpg">
+                        <div class="singername"><a href="#">赵雷</a></div>
+                    </div>
+                    <div class="more">
+                        <a href="#">更多歌手 ></a>
+                    </div>
+                </div>
+
+
+                <div class="fenlei">
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/aaa.jpg">
+                        <div class="singername"><a href="#">周杰伦</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/bbb.jpg">
+                        <div class="singername"><a href="#">陈奕迅</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/ccc.jpg">
+                        <div class="singername"><a href="#">张韶涵</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/ddd.jpg">
+                        <div class="singername"><a href="#">邓紫棋</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/eee.jpg">
+                        <div class="singername"><a href="#">王力宏</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/fff.jpg">
+                        <div class="singername"><a href="#">孙燕姿</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/ggg.jpg">
+                        <div class="singername"><a href="#">周柏豪</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/hhh.jpg">
+                        <div class="singername"><a href="#">林俊杰</a></div>
+                    </div>
+                    <div class="more">
+                        <a href="#">更多歌手 ></a>
+                    </div>
+                </div>
+
+
+                <div class="fenlei">
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/aaaa.jpg">
+                        <div class="singername"><a href="#">高橋優</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/bbbb.jpg">
+                        <div class="singername"><a href="#">MYTH & ROID</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/cccc.jpg">
+                        <div class="singername"><a href="#">倉木麻衣</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/dddd.jpg">
+                        <div class="singername"><a href="#">moumoon</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/eeee.jpg">
+                        <div class="singername"><a href="#">金泫雅</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/ffff.jpg">
+                        <div class="singername"><a href="#">iKON</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/gggg.jpg">
+                        <div class="singername"><a href="#">少女时代</a></div>
+                    </div>
+                    <div class="singer">
+                        <img class="singersize" src="/dairy/music/image/hhhh.jpg">
+                        <div class="singername"><a href="#">EXO</a></div>
+                    </div>
+                    <div class="more">
+                        <a href="#">更多歌手 ></a>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <!--电台-->
+        <div class="allradio">
+            <div class="title">电台</div>
+            <div class="radio">
+                <div class="radiodetailed">
+                    <img class="radiosize" src="/dairy/music/image/d1.jpg">
+                    <div class="radioname"><a href="#">个性电台</a></div>
+                </div>
+                <div class="radiodetailed">
+                    <img class="radiosize" src="/dairy/music/image/d2.jpg">
+                    <div class="radioname"><a href="#">热门</a></div>
+                </div>
+                <div class="radiodetailed">
+                    <img class="radiosize" src="/dairy/music/image/d3.jpg">
+                    <div class="radioname"><a href="#">粤语</a></div>
+                </div>
+                <div class="radiodetailed">
+                    <img class="radiosize" src="/dairy/music/image/d4.jpg">
+                    <div class="radioname"><a href="#">DJ</a></div>
+                </div>
+                <div class="radiodetailed">
+                    <img class="radiosize" src="/dairy/music/image/d5.jpg">
+                    <div class="radioname"><a href="#">抒情</a></div>
+                </div>
+                <div class="radiodetailed">
+                    <img class="radiosize" src="/dairy/music/image/d6.jpg">
+                    <div class="radioname"><a href="#">民谣</a></div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript" src="/dairy/music/js/lunbo.js"></script>
+<script type="text/javascript" src="/dairy/music/js/Rotate.js"></script>
+<script type="text/javascript" src="/dairy/music/js/tab.js"></script>
+
+</body>
+</html>

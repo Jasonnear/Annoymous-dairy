@@ -1162,4 +1162,59 @@ public class DairyController {
 		}
 		return jsonObject;
 	}
+	
+	////////////////////
+	/**
+	 * 视频首页
+	 */
+	@RequestMapping("/video")
+	public String video(HttpSession session){
+		return "dairy/video/html/all-index";
+	}
+	
+	//////////////////
+	/**
+	 * 音乐首页
+	 * @return
+	 */
+	@RequestMapping("/music")
+	public String music(){
+		return "dairy/music/index";
+	}
+	
+	/**
+	 * 精选
+	 * @return
+	 */
+	@RequestMapping("/music_handpick")
+	public String music_handpick(){
+		return "dairy/music/music_handpick";
+	}
+	
+	/**
+	 * 语言
+	 * @return
+	 */
+	@RequestMapping("/music_language")
+	public String music_language(){
+		return "dairy/music/music_language";
+	}
+	
+	/**
+	 * 排行
+	 * @return
+	 */
+	@RequestMapping("/music_ranking")
+	public String music_ranking(){
+		return "dairy/music/music_ranking";
+	}
+	
+	/**
+	 * 更多歌曲
+	 * @return
+	 */
+	@RequestMapping("/music_ranking_detail")
+	public String music_ranking_detail(){
+		return "dairy/music/music_ranking_detail";
+	}
 }
